@@ -35,17 +35,17 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-white p-4 md:p-8 max-w-3xl mx-auto">
+    <main className="min-h-screen bg-background p-4 md:p-8 max-w-3xl mx-auto transition-colors duration-300">
       <header className="mb-12">
-        <h1 className="text-3xl font-bold mb-2">Micro-Movie Log</h1>
-        <p className="text-gray-600 mb-6">A minimalist log of films watched</p>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">Micro-Movie Log</h1>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">A minimalist log of films watched</p>
         
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <input
             type="text"
             placeholder="Search movies..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-transparent"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -57,17 +57,17 @@ export default function Home() {
           filteredMovies.map((movie) => (
             <article 
               key={movie.id} 
-              className="border-b border-gray-100 pb-6 last:border-b-0 last:pb-0"
+              className="border-b border-gray-100 dark:border-gray-800 pb-6 last:border-b-0 last:pb-0"
             >
               <div className="flex justify-between items-start">
-                <h2 className="text-xl font-medium">{movie.title}</h2>
+                <h2 className="text-xl font-medium text-foreground">{movie.title}</h2>
                 <div className="flex flex-col items-end space-y-1">
-                  <span className="text-sm text-gray-500 font-mono flex items-center">
+                  <span className="text-sm text-gray-500 dark:text-gray-400 font-mono flex items-center">
                     <Calendar className="w-3.5 h-3.5 mr-1" />
                     {formatDate(movie.date)}
                   </span>
                   {movie.location && (
-                    <span className="text-xs text-gray-400 font-mono flex items-center">
+                    <span className="text-xs text-gray-400 dark:text-gray-500 font-mono flex items-center">
                       <MapPin className="w-3 h-3 mr-1" />
                       {movie.location}
                     </span>
@@ -79,12 +79,12 @@ export default function Home() {
                 <div className="flex">
                   {renderStars(movie.rating)}
                 </div>
-                <span className="ml-2 text-sm text-gray-500">
+                <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
                   {movie.rating}/5
                 </span>
               </div>
               
-              <p className="text-gray-700 mt-2">{movie.review}</p>
+              <p className="text-gray-700 dark:text-gray-300 mt-2">{movie.review}</p>
             </article>
           ))
         ) : (
