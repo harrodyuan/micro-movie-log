@@ -18,11 +18,19 @@ export default function Top10() {
         
         <div className="flex items-center space-x-3 mb-2">
           <Trophy className="w-8 h-8 text-yellow-500" />
-          <h1 className="text-3xl font-bold text-foreground">Harold's Top 10</h1>
+          <h1 className="text-3xl font-bold text-foreground">Top 10 movies in theater for Harold</h1>
         </div>
-        <p className="text-gray-600 dark:text-gray-400">
-          The cinematic highlights of 2025 that defined the year.
-        </p>
+        <div className="text-gray-600 dark:text-gray-400 space-y-4 max-w-2xl">
+          <p>
+            I watch a lot of movies. In theaters. I love movies, but I make money with quant. The only way I can show my love is going to the theater and watching movies. And I always do.
+          </p>
+          <p>
+            This year my 90% confidence interval of the number of movies that I watched would be bid 99 ask 110 in theaters from Jan. 16th to Dec 20th. I watched them in Dolby, IMAX, IMAX 3D, IMAX 70mm, and normal formats.
+          </p>
+          <p>
+            Here are my top 10 movies in theater list for 2025:
+          </p>
+        </div>
       </header>
 
       <div className="space-y-12">
@@ -43,9 +51,6 @@ export default function Top10() {
                   No Poster
                 </div>
               )}
-              <div className="absolute top-0 left-0 w-10 h-10 bg-black text-white flex items-center justify-center font-bold text-lg rounded-br-lg shadow-sm">
-                #{movie.rank}
-              </div>
             </div>
             
             <div className="flex-1 py-2">
