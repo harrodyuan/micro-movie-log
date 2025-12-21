@@ -82,17 +82,30 @@ export default function Home() {
           className="mb-12 text-center"
         >
           <div className="mb-8">
-            <h1 className="text-5xl font-bold mb-2 tracking-tight text-white">
+            <h1 className="text-5xl font-bold mb-6 tracking-tight text-white">
               Moving Image Data Base
             </h1>
+
+            {/* Main Navigation Tabs */}
+            <div className="flex justify-center items-center space-x-1 p-1 bg-neutral-900/50 backdrop-blur-md rounded-full inline-flex border border-neutral-800">
+              <button className="px-6 py-2 rounded-full text-sm font-medium bg-white text-black shadow-lg">
+                Log
+              </button>
+              <button className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+                Rankings
+              </button>
+              <button className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+                Reviews
+              </button>
+            </div>
           </div>
           
-          {/* Lists / Collections Card */}
+          {/* Lists / Collections Card - Keeping this as a 'Featured' element for now */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className="mb-8 max-w-xl mx-auto text-left"
+            className="mb-12 max-w-xl mx-auto text-left"
           >
             <Link 
               href="/top10"
@@ -118,7 +131,7 @@ export default function Home() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-500 group-focus-within:text-white transition-colors" />
                 <input
                   type="text"
-                  placeholder="Search movies..."
+                  placeholder="Search database..."
                   className="w-full pl-10 pr-4 py-3 bg-transparent text-sm focus:outline-none placeholder:text-neutral-600 text-white"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -131,7 +144,9 @@ export default function Home() {
               <div className="flex items-center justify-between pb-4 border-b border-neutral-900">
                 <div className="flex items-center space-x-6">
                   <div className="flex items-center space-x-2">
-                    <span className="text-sm font-medium text-neutral-400">{stats.count} <span className="text-neutral-600 font-normal">Watched</span></span>
+                    <span className="text-sm font-medium text-white">Chronological Log</span>
+                    <span className="text-sm text-neutral-600">•</span>
+                    <span className="text-sm font-medium text-neutral-400">{stats.count} <span className="text-neutral-600 font-normal">Entries</span></span>
                   </div>
                 </div>
               </div>
