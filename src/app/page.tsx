@@ -1,7 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useMemo } from 'react';
-import { Search, Star, Calendar, MapPin } from 'lucide-react';
+import { Search, Star, Calendar, MapPin, Trophy } from 'lucide-react';
 import { movies } from '@/data/movies';
 
 export default function Home() {
@@ -30,6 +31,7 @@ export default function Home() {
       <Star 
         key={i} 
         className={`w-4 h-4 ${i < rating ? 'fill-current' : 'text-gray-300'}`} 
+        fill={i < rating ? "currentColor" : "none"}
       />
     ));
   };
@@ -37,8 +39,19 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background p-4 md:p-8 max-w-3xl mx-auto transition-colors duration-300">
       <header className="mb-12">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">Micro-Movie Log</h1>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">A minimalist log of films watched</p>
+        <div className="flex justify-between items-start mb-6">
+          <div>
+            <h1 className="text-3xl font-bold mb-2 text-foreground">Micro-Movie Log</h1>
+            <p className="text-gray-600 dark:text-gray-400">A minimalist log of films watched</p>
+          </div>
+          <Link 
+            href="/top10"
+            className="flex items-center space-x-2 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm font-medium hover:opacity-90 transition-opacity shadow-sm"
+          >
+            <Trophy className="w-4 h-4" />
+            <span>Harold's Top 10</span>
+          </Link>
+        </div>
         
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />

@@ -15,7 +15,8 @@ export const movies: Movie[] = [
     title: 'Avatar: Fire and Ash',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Avatar_Fire_and_Ash.jpg'
   },
   {
     id: '2',
@@ -23,7 +24,8 @@ export const movies: Movie[] = [
     title: 'The Shining 45th Anniversary',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/The_Shining_45th_Anniversary.jpg'
   },
   {
     id: '3',
@@ -31,7 +33,8 @@ export const movies: Movie[] = [
     title: 'Ella McCay',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Ella_McCay.jpg'
   },
   {
     id: '4',
@@ -39,7 +42,8 @@ export const movies: Movie[] = [
     title: 'Eternity',
     rating: 0,
     review: '',
-    location: 'AMC Empire 25'
+    location: 'AMC Empire 25',
+    posterUrl: '/posters/Eternity.jpg'
   },
   {
     id: '5',
@@ -47,7 +51,8 @@ export const movies: Movie[] = [
     title: 'Zootopia 2',
     rating: 0,
     review: '',
-    location: 'AMC 34th Street 14'
+    location: 'AMC 34th Street 14',
+    posterUrl: '/posters/Zootopia_2.jpg'
   },
   {
     id: '6',
@@ -55,7 +60,8 @@ export const movies: Movie[] = [
     title: 'Hamnet',
     rating: 0,
     review: '',
-    location: 'AMC Boston Common 19'
+    location: 'AMC Boston Common 19',
+    posterUrl: '/posters/Hamnet.jpg'
   },
   {
     id: '7',
@@ -63,7 +69,8 @@ export const movies: Movie[] = [
     title: 'Zootopia 2',
     rating: 0,
     review: '',
-    location: 'AMC 34th Street 14'
+    location: 'AMC 34th Street 14',
+    posterUrl: '/posters/Zootopia_2.jpg'
   },
   {
     id: '8',
@@ -71,7 +78,8 @@ export const movies: Movie[] = [
     title: 'Rental Family',
     rating: 0,
     review: '',
-    location: 'AMC Empire 25'
+    location: 'AMC Empire 25',
+    posterUrl: '/posters/Rental_Family.jpg'
   },
   {
     id: '9',
@@ -79,7 +87,8 @@ export const movies: Movie[] = [
     title: 'One Battle After Another',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/One_Battle_After_Another.jpg'
   },
   {
     id: '10',
@@ -103,7 +112,8 @@ export const movies: Movie[] = [
     title: 'The Running Man',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/The_Running_Man.jpg'
   },
   {
     id: '13',
@@ -111,7 +121,8 @@ export const movies: Movie[] = [
     title: 'Die My Love',
     rating: 0,
     review: '',
-    location: 'AMC 19th St. East 6'
+    location: 'AMC 19th St. East 6',
+    posterUrl: '/posters/Die_My_Love.jpg'
   },
   {
     id: '14',
@@ -119,7 +130,8 @@ export const movies: Movie[] = [
     title: 'Nuremberg',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Nuremberg.jpg'
   },
   {
     id: '15',
@@ -127,7 +139,8 @@ export const movies: Movie[] = [
     title: 'Back to the Future – 40th Anniversary',
     rating: 0,
     review: '',
-    location: 'AMC Empire 25'
+    location: 'AMC Empire 25',
+    posterUrl: '/posters/Back_to_the_Future_–_40th_Anniversary.jpg'
   },
   {
     id: '16',
@@ -151,7 +164,8 @@ export const movies: Movie[] = [
     title: 'Blue Moon',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Blue_Moon.jpg'
   },
   {
     id: '19',
@@ -167,7 +181,8 @@ export const movies: Movie[] = [
     title: 'Annie Hall (FF25)',
     rating: 0,
     review: '',
-    location: 'AMC Empire 25'
+    location: 'AMC Empire 25',
+    posterUrl: '/posters/Annie_Hall_(FF25).jpg'
   },
   {
     id: '21',
@@ -175,7 +190,8 @@ export const movies: Movie[] = [
     title: "Something's Gotta Give (FF25)",
     rating: 0,
     review: '',
-    location: 'AMC Empire 25'
+    location: 'AMC Empire 25',
+    posterUrl: '/posters/Something.jpg'
   },
   {
     id: '22',
@@ -183,7 +199,8 @@ export const movies: Movie[] = [
     title: 'Good Fortune',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Good_Fortune.jpg'
   },
   {
     id: '23',
@@ -191,7 +208,8 @@ export const movies: Movie[] = [
     title: 'Roofman',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/Roofman.jpg'
   },
   {
     id: '24',
@@ -207,7 +225,8 @@ export const movies: Movie[] = [
     title: 'Tron: Ares',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Tron_Ares.jpg'
   },
   {
     id: '26',
@@ -215,7 +234,8 @@ export const movies: Movie[] = [
     title: 'The Smashing Machine',
     rating: 0,
     review: '',
-    location: 'AMC Majestic 6'
+    location: 'AMC Majestic 6',
+    posterUrl: '/posters/The_Smashing_Machine.jpg'
   },
   {
     id: '27',
@@ -223,7 +243,8 @@ export const movies: Movie[] = [
     title: 'After the Hunt - Early Access Screening',
     rating: 0,
     review: '',
-    location: 'AMC Lincoln Square 13'
+    location: 'AMC Lincoln Square 13',
+    posterUrl: '/posters/After_the_Hunt_-_Early_Access_Screening.jpg'
   },
   {
     id: '28',
@@ -255,7 +276,8 @@ export const movies: Movie[] = [
     title: "Gabby's Dollhouse: The Movie",
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Gabby.jpg'
   },
   {
     id: '32',
@@ -271,7 +293,8 @@ export const movies: Movie[] = [
     title: 'Him',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Him.jpg'
   },
   {
     id: '34',
@@ -279,7 +302,8 @@ export const movies: Movie[] = [
     title: 'Apollo 13: 30th Anniversary',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Apollo_13_30th_Anniversary.jpg'
   },
   {
     id: '35',
@@ -287,7 +311,8 @@ export const movies: Movie[] = [
     title: 'Demon Slayer: Kimetsu No Yaiba Infinity Castle',
     rating: 0,
     review: '',
-    location: 'AMC Lincoln Square 13'
+    location: 'AMC Lincoln Square 13',
+    posterUrl: '/posters/Demon_Slayer_Kimetsu_No_Yaiba_Infinity_Castle.jpg'
   },
   {
     id: '36',
@@ -295,7 +320,8 @@ export const movies: Movie[] = [
     title: 'Downton Abbey: The Grand Finale',
     rating: 0,
     review: '',
-    location: 'AMC 19th St. East 6'
+    location: 'AMC 19th St. East 6',
+    posterUrl: '/posters/Downton_Abbey_The_Grand_Finale.jpg'
   },
   {
     id: '37',
@@ -303,7 +329,8 @@ export const movies: Movie[] = [
     title: 'Toy Story: 30th Anniversary',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Toy_Story_30th_Anniversary.jpg'
   },
   {
     id: '38',
@@ -319,7 +346,8 @@ export const movies: Movie[] = [
     title: 'Hamilton',
     rating: 0,
     review: '',
-    location: 'AMC 19th St. East 6'
+    location: 'AMC 19th St. East 6',
+    posterUrl: '/posters/Hamilton.jpg'
   },
   {
     id: '40',
@@ -327,7 +355,8 @@ export const movies: Movie[] = [
     title: 'The Baltimorons',
     rating: 0,
     review: '',
-    location: 'AMC Lincoln Square 13'
+    location: 'AMC Lincoln Square 13',
+    posterUrl: '/posters/The_Baltimorons.jpg'
   },
   {
     id: '41',
@@ -335,7 +364,8 @@ export const movies: Movie[] = [
     title: 'Splitsville',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Splitsville.jpg'
   },
   {
     id: '42',
@@ -343,7 +373,8 @@ export const movies: Movie[] = [
     title: 'Twinless',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Twinless.jpg'
   },
   {
     id: '43',
@@ -351,7 +382,8 @@ export const movies: Movie[] = [
     title: 'Jaws: 50th Anniversary',
     rating: 0,
     review: '',
-    location: 'AMC Lincoln Square 13'
+    location: 'AMC Lincoln Square 13',
+    posterUrl: '/posters/Jaws_50th_Anniversary.jpg'
   },
   {
     id: '44',
@@ -367,7 +399,8 @@ export const movies: Movie[] = [
     title: 'Weapons',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Weapons.jpg'
   },
   {
     id: '46',
@@ -375,7 +408,8 @@ export const movies: Movie[] = [
     title: "The Shadow's Edge",
     rating: 0,
     review: '',
-    location: 'AMC Empire 25'
+    location: 'AMC Empire 25',
+    posterUrl: '/posters/The_Shadow.jpg'
   },
   {
     id: '47',
@@ -407,7 +441,8 @@ export const movies: Movie[] = [
     title: 'Sunset Boulevard 75th Anniversary',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Sunset_Boulevard_75th_Anniversary.jpg'
   },
   {
     id: '51',
@@ -431,7 +466,8 @@ export const movies: Movie[] = [
     title: 'Sorry, Baby',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Sorry,_Baby.jpg'
   },
   {
     id: '54',
@@ -439,7 +475,8 @@ export const movies: Movie[] = [
     title: 'The Fantastic Four: First Steps',
     rating: 0,
     review: '',
-    location: 'AMC Lincoln Square 13'
+    location: 'AMC Lincoln Square 13',
+    posterUrl: '/posters/The_Fantastic_Four_First_Steps.jpg'
   },
   {
     id: '55',
@@ -447,7 +484,8 @@ export const movies: Movie[] = [
     title: 'The Lychee Road / The Litchi Road',
     rating: 0,
     review: '',
-    location: 'AMC Empire 25'
+    location: 'AMC Empire 25',
+    posterUrl: '/posters/The_Lychee_Road_-_The_Litchi_Road.jpg'
   },
   {
     id: '56',
@@ -455,7 +493,8 @@ export const movies: Movie[] = [
     title: 'AMC Scream Unseen: July 21',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/AMC_Scream_Unseen_July_21.jpg'
   },
   {
     id: '57',
@@ -463,7 +502,8 @@ export const movies: Movie[] = [
     title: 'Eddington',
     rating: 0,
     review: '',
-    location: 'AMC Newport Centre 11'
+    location: 'AMC Newport Centre 11',
+    posterUrl: '/posters/Eddington.jpg'
   },
   {
     id: '58',
@@ -487,7 +527,8 @@ export const movies: Movie[] = [
     title: 'Mission: Impossible – The Final Reckoning',
     rating: 0,
     review: '',
-    location: 'AMC 19th St. East 6'
+    location: 'AMC 19th St. East 6',
+    posterUrl: '/posters/Mission_Impossible_–_The_Final_Reckoning.jpg'
   },
   {
     id: '61',
@@ -503,7 +544,8 @@ export const movies: Movie[] = [
     title: 'Jurassic World Rebirth',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/Jurassic_World_Rebirth.jpg'
   },
   {
     id: '63',
@@ -511,7 +553,8 @@ export const movies: Movie[] = [
     title: '28 Years Later',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/28_Years_Later.jpg'
   },
   {
     id: '64',
@@ -519,7 +562,8 @@ export const movies: Movie[] = [
     title: 'F1 The Movie Fan First Premiere Exclusively in IMAX',
     rating: 0,
     review: '',
-    location: 'AMC Lincoln Square 13'
+    location: 'AMC Lincoln Square 13',
+    posterUrl: '/posters/F1_The_Movie_Fan_First_Premiere_Exclusively_in_IMAX.jpg'
   },
   {
     id: '65',
@@ -535,7 +579,8 @@ export const movies: Movie[] = [
     title: 'Brokeback Mountain: 20th Anniversary',
     rating: 0,
     review: '',
-    location: 'AMC Empire 25'
+    location: 'AMC Empire 25',
+    posterUrl: '/posters/Brokeback_Mountain_20th_Anniversary.jpg'
   },
   {
     id: '67',
@@ -567,7 +612,8 @@ export const movies: Movie[] = [
     title: 'Lilo & Stitch',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/Lilo_&_Stitch.jpg'
   },
   {
     id: '71',
@@ -583,7 +629,8 @@ export const movies: Movie[] = [
     title: 'Final Destination Bloodlines',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/Final_Destination_Bloodlines.jpg'
   },
   {
     id: '73',
@@ -591,7 +638,8 @@ export const movies: Movie[] = [
     title: 'Final Destination Bloodlines',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/Final_Destination_Bloodlines.jpg'
   },
   {
     id: '74',
@@ -599,7 +647,8 @@ export const movies: Movie[] = [
     title: 'AMC Screen Unseen: June 2',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/AMC_Screen_Unseen_June_2.jpg'
   },
   {
     id: '75',
@@ -623,7 +672,8 @@ export const movies: Movie[] = [
     title: 'Shadow Force',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/Shadow_Force.jpg'
   },
   {
     id: '78',
@@ -631,7 +681,8 @@ export const movies: Movie[] = [
     title: 'Annabelle: Halfway to Halloween',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Annabelle_Halfway_to_Halloween.jpg'
   },
   {
     id: '79',
@@ -639,7 +690,8 @@ export const movies: Movie[] = [
     title: 'The Accountant 2',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/The_Accountant_2.jpg'
   },
   {
     id: '80',
@@ -647,7 +699,8 @@ export const movies: Movie[] = [
     title: 'Thunderbolts*',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Thunderbolts.jpg'
   },
   {
     id: '81',
@@ -655,7 +708,8 @@ export const movies: Movie[] = [
     title: 'Star Wars: Episode III - Revenge of the Sith 20th Anniversary Re-Release (2025)',
     rating: 0,
     review: '',
-    location: 'AMC Empire 25'
+    location: 'AMC Empire 25',
+    posterUrl: '/posters/Star_Wars_Episode_III_-_Revenge_of_the_Sith_20th_Anniversary_Re-Release_(2025).jpg'
   },
   {
     id: '82',
@@ -663,7 +717,8 @@ export const movies: Movie[] = [
     title: 'The Accountant 2',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/The_Accountant_2.jpg'
   },
   {
     id: '83',
@@ -687,7 +742,8 @@ export const movies: Movie[] = [
     title: 'The Amateur',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/The_Amateur.jpg'
   },
   {
     id: '86',
@@ -703,7 +759,8 @@ export const movies: Movie[] = [
     title: 'The Friend',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/The_Friend.jpg'
   },
   {
     id: '88',
@@ -727,7 +784,8 @@ export const movies: Movie[] = [
     title: 'Parthenope',
     rating: 0,
     review: '',
-    location: 'AMC Lincoln Square 13'
+    location: 'AMC Lincoln Square 13',
+    posterUrl: '/posters/Parthenope.jpg'
   },
   {
     id: '91',
@@ -751,7 +809,8 @@ export const movies: Movie[] = [
     title: 'Parasite: IMAX Exclusive',
     rating: 0,
     review: '',
-    location: 'AMC Kips Bay 15'
+    location: 'AMC Kips Bay 15',
+    posterUrl: '/posters/Parasite_IMAX_Exclusive.jpg'
   },
   {
     id: '94',
@@ -767,7 +826,8 @@ export const movies: Movie[] = [
     title: 'Detective Chinatown 1900',
     rating: 0,
     review: '',
-    location: 'AMC Southpoint 17'
+    location: 'AMC Southpoint 17',
+    posterUrl: '/posters/Detective_Chinatown_1900.jpg'
   },
   {
     id: '96',
@@ -775,7 +835,8 @@ export const movies: Movie[] = [
     title: 'Creation of the Gods II: Demon Force',
     rating: 0,
     review: '',
-    location: 'AMC Southpoint 17'
+    location: 'AMC Southpoint 17',
+    posterUrl: '/posters/Creation_of_the_Gods_II_Demon_Force.jpg'
   },
   {
     id: '97',
@@ -783,7 +844,8 @@ export const movies: Movie[] = [
     title: "I'm Still Here",
     rating: 0,
     review: '',
-    location: 'AMC Lincoln Square 13'
+    location: 'AMC Lincoln Square 13',
+    posterUrl: '/posters/I.jpg'
   },
   {
     id: '98',
@@ -791,7 +853,8 @@ export const movies: Movie[] = [
     title: 'The Brutalist',
     rating: 0,
     review: '',
-    location: 'AMC Lincoln Square 13'
+    location: 'AMC Lincoln Square 13',
+    posterUrl: '/posters/The_Brutalist.jpg'
   },
   {
     id: '99',
@@ -799,7 +862,8 @@ export const movies: Movie[] = [
     title: 'Flight Risk',
     rating: 0,
     review: '',
-    location: 'AMC Village 7'
+    location: 'AMC Village 7',
+    posterUrl: '/posters/Flight_Risk.jpg'
   },
   {
     id: '100',
@@ -807,7 +871,8 @@ export const movies: Movie[] = [
     title: 'A Complete Unknown',
     rating: 0,
     review: '',
-    location: 'AMC 19th St. East 6'
+    location: 'AMC 19th St. East 6',
+    posterUrl: '/posters/A_Complete_Unknown.jpg'
   },
   {
     id: '101',
@@ -815,6 +880,7 @@ export const movies: Movie[] = [
     title: 'Babygirl',
     rating: 0,
     review: '',
-    location: 'AMC 19th St. East 6'
+    location: 'AMC 19th St. East 6',
+    posterUrl: '/posters/Babygirl.jpg'
   }
 ];

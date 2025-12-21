@@ -1,111 +1,118 @@
 import os
 import time
+import json
 import requests
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-import urllib.request
+import re
+from playwright.sync_api import sync_playwright
 
 # Configuration
-EMAIL = "harrodyuan@gmail.com"
-PASSWORD = "@2002Yzf"
 OUTPUT_DIR = "../public/posters"
-
-# AMC URLs
-LOGIN_URL = "https://www.amctheatres.com/amcstubs/login"
+MAP_FILE = "poster_map.json"
+MOVIES_FILE = "../src/data/movies.ts"
 HISTORY_URL = "https://www.amctheatres.com/my-amc/tickets?past-events-range=1y&past-events-after=cGM6MToxMDo5"
 
-def setup_driver():
-    options = webdriver.ChromeOptions()
-    # options.add_argument('--headless') # Run in headless mode (no GUI)
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-    
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    return driver
-
-def login(driver):
-    print("Navigating to login page...")
-    driver.get(LOGIN_URL)
-    
+def download_image(url, filepath):
     try:
-        # Wait for email field
-        print("Waiting for login fields...")
-        email_field = WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.ID, "email-login-field"))
-        )
-        password_field = driver.find_element(By.ID, "password-login-field")
-        
-        print("Entering credentials...")
-        email_field.send_keys(EMAIL)
-        password_field.send_keys(PASSWORD)
-        password_field.send_keys(Keys.RETURN)
-        
-        # Wait for login to complete (check for My AMC or similar)
-        print("Waiting for login to complete...")
-        time.sleep(5) # Simple wait for redirect, adjust as needed or use explicit wait
-        
-        # Check if we are still on login page (failed)
-        if "login" in driver.current_url:
-            print("Login might have failed or captcha triggered. Please check the browser window.")
-            # time.sleep(60) # Give user time to solve captcha manually if not headless
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+        }
+        response = requests.get(url, stream=True, headers=headers)
+        if response.status_code == 200:
+            with open(filepath, 'wb') as f:
+                for chunk in response.iter_content(1024):
+                    f.write(chunk)
+            return True
     except Exception as e:
-        print(f"Error during login: {e}")
+        print(f"Error downloading {url}: {e}")
+    return False
 
-def scrape_posters(driver):
-    print(f"Navigating to history page: {HISTORY_URL}")
-    driver.get(HISTORY_URL)
-    time.sleep(5) # Wait for page load
-    
-    # Scroll down to load more items if necessary
-    # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    
-    # Find all poster images
-    # Note: Selectors depend on AMC's current DOM structure. 
-    # Based on general knowledge, looking for images within ticket/event containers.
-    # We might need to inspect the page to get exact selectors.
-    # For now, I'll look for img tags that look like movie posters.
-    
-    images = driver.find_elements(By.TAG_NAME, "img")
-    
-    if not os.path.exists(OUTPUT_DIR):
-        os.makedirs(OUTPUT_DIR)
-        
-    count = 0
-    for img in images:
-        src = img.get_attribute('src')
-        alt = img.get_attribute('alt')
-        
-        # Filter for likely poster URLs (amc-theatres-res.cloudinary.com is common)
-        if src and "cloudinary" in src and alt:
-            filename = f"{alt.replace(' ', '_').replace(':', '').replace('/', '-')}.jpg"
-            filepath = os.path.join(OUTPUT_DIR, filename)
+def update_movies_ts(poster_map):
+    print(f"Updating {MOVIES_FILE}...")
+    try:
+        with open(MOVIES_FILE, 'r') as f:
+            content = f.read()
             
-            if not os.path.exists(filepath):
-                print(f"Downloading poster for {alt}...")
-                try:
-                    urllib.request.urlretrieve(src, filepath)
-                    count += 1
-                except Exception as e:
-                    print(f"Failed to download {alt}: {e}")
-            else:
-                print(f"Poster for {alt} already exists.")
+        updated_content = content
+        count = 0
+        
+        for title, poster_path in poster_map.items():
+            safe_title = re.escape(title)
+            pattern = re.compile(rf"(title:\s*['\"]{safe_title}['\"].*?)(posterUrl:\s*['\"].*?['\"])?(?=\s*\}})", re.DOTALL)
+            
+            match = pattern.search(updated_content)
+            if match:
+                full_match = match.group(0)
+                if f"posterUrl: '{poster_path}'" in full_match:
+                    continue
+                if "posterUrl:" in full_match:
+                    new_block = re.sub(r"posterUrl:\s*['\"].*?['\"]", f"posterUrl: '{poster_path}'", full_match)
+                else:
+                    new_block = full_match.rstrip() + f",\n    posterUrl: '{poster_path}'"
+                updated_content = updated_content.replace(full_match, new_block)
+                count += 1
                 
-    print(f"Downloaded {count} new posters.")
+        with open(MOVIES_FILE, 'w') as f:
+            f.write(updated_content)
+        print(f"Successfully updated {count} movie entries in {MOVIES_FILE}")
+    except Exception as e:
+        print(f"Error updating movies.ts: {e}")
 
 def main():
-    driver = setup_driver()
-    try:
-        login(driver)
-        scrape_posters(driver)
-    finally:
-        print("Closing driver...")
-        driver.quit()
+    with sync_playwright() as p:
+        print("Connecting to existing Chrome instance on port 9222...")
+        try:
+            # Connect to the Chrome instance (Explicitly use 127.0.0.1 to avoid IPv6 issues)
+            browser = p.chromium.connect_over_cdp("http://127.0.0.1:9222")
+            context = browser.contexts[0]
+            page = context.pages[0]
+            
+            print("Connected! Using current page.")
+            
+            print(f"Navigating to history: {HISTORY_URL}")
+            page.goto(HISTORY_URL)
+            page.wait_for_load_state("domcontentloaded")
+            
+            print("Scrolling page...")
+            for _ in range(5):
+                page.mouse.wheel(0, 1000)
+                time.sleep(1)
+            
+            print("Scanning for posters...")
+            images = page.query_selector_all("img")
+            
+            if not os.path.exists(OUTPUT_DIR):
+                os.makedirs(OUTPUT_DIR)
+                
+            poster_map = {}
+            count = 0
+            
+            for img in images:
+                src = img.get_attribute("src")
+                alt = img.get_attribute("alt")
+                
+                if src and "cloudinary" in src and alt:
+                    filename = f"{alt.replace(' ', '_').replace(':', '').replace('/', '-').replace('*', '')}.jpg"
+                    filepath = os.path.join(OUTPUT_DIR, filename)
+                    poster_map[alt] = f"/posters/{filename}"
+                    
+                    if not os.path.exists(filepath):
+                        print(f"Downloading poster for: {alt}")
+                        if download_image(src, filepath):
+                            count += 1
+                    else:
+                        print(f"Exists: {alt}")
+                        
+            with open(MAP_FILE, 'w') as f:
+                json.dump(poster_map, f, indent=2)
+                
+            print(f"Finished! Downloaded {count} new posters.")
+            update_movies_ts(poster_map)
+            
+            browser.close()
+            
+        except Exception as e:
+            print(f"Connection error: {e}")
+            print("Make sure you started Chrome with: /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --remote-debugging-port=9222")
 
 if __name__ == "__main__":
     main()
