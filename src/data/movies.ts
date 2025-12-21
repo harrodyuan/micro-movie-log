@@ -882,5 +882,230 @@ export const movies: Movie[] = [
     review: '',
     location: 'AMC 19th St. East 6',
     posterUrl: '/posters/Babygirl.jpg'
+  },
+  // 2024 Movies (Imported from AMC)
+  {
+    id: '102',
+    date: '2024-12-08',
+    title: 'Interstellar',
+    rating: 0,
+    review: '',
+    location: 'AMC Lincoln Square 13'
+  },
+  {
+    id: '103',
+    date: '2024-12-06',
+    title: 'Interstellar',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '104',
+    date: '2024-11-27',
+    title: 'Her Story',
+    rating: 0,
+    review: '',
+    location: 'AMC Empire 25'
+  },
+  {
+    id: '105',
+    date: '2024-11-23',
+    title: 'Wicked',
+    rating: 0,
+    review: '',
+    location: 'AMC Village 7'
+  },
+  {
+    id: '106',
+    date: '2024-11-18',
+    title: 'AMC Screen Unseen: November 18',
+    rating: 0,
+    review: '',
+    location: 'AMC Village 7'
+  },
+  {
+    id: '107',
+    date: '2024-11-16',
+    title: 'Red One',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '108',
+    date: '2024-11-01',
+    title: 'Godzilla Minus One Minus Color',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '109',
+    date: '2024-10-31',
+    title: 'Anora',
+    rating: 0,
+    review: '',
+    location: 'AMC Empire 25'
+  },
+  {
+    id: '110',
+    date: '2024-10-28',
+    title: 'Conclave',
+    rating: 0,
+    review: '',
+    location: 'AMC 34th Street 14'
+  },
+  {
+    id: '111',
+    date: '2024-10-26',
+    title: 'Venom: The Last Dance',
+    rating: 0,
+    review: '',
+    location: 'AMC Empire 25'
+  },
+  {
+    id: '112',
+    date: '2024-10-20',
+    title: 'The Substance',
+    rating: 0,
+    review: '',
+    location: 'AMC 19th St. East 6'
+  },
+  {
+    id: '113',
+    date: '2024-10-19',
+    title: 'Saturday Night',
+    rating: 0,
+    review: '',
+    location: 'AMC Village 7'
+  },
+  {
+    id: '114',
+    date: '2024-10-18',
+    title: 'We Live in Time',
+    rating: 0,
+    review: '',
+    location: 'AMC 34th Street 14'
+  },
+  {
+    id: '115',
+    date: '2024-10-17',
+    title: 'Smile 2',
+    rating: 0,
+    review: '',
+    location: 'AMC Lincoln Square 13'
+  },
+  {
+    id: '116',
+    date: '2024-10-04',
+    title: 'Joker: Folie a Deux',
+    rating: 0,
+    review: '',
+    location: 'AMC Lincoln Square 13'
+  },
+  {
+    id: '117',
+    date: '2024-10-03',
+    title: 'Joker: Folie a Deux',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '118',
+    date: '2024-09-28',
+    title: 'Megalopolis',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '119',
+    date: '2024-09-26',
+    title: 'The Wild Robot',
+    rating: 0,
+    review: '',
+    location: 'AMC Village 7'
+  },
+  {
+    id: '120',
+    date: '2024-09-25',
+    title: 'Whiplash 10th Anniversary',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '121',
+    date: '2024-09-22',
+    title: 'Transformers One',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '122',
+    date: '2024-09-09',
+    title: 'AMC Screen Unseen: September 9',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '123',
+    date: '2024-09-07',
+    title: 'Trap',
+    rating: 0,
+    review: '',
+    location: 'AMC 34th Street 14'
+  },
+  {
+    id: '124',
+    date: '2024-09-06',
+    title: 'Beetlejuice Beetlejuice',
+    rating: 0,
+    review: '',
+    location: 'AMC Village 7'
+  },
+  {
+    id: '125',
+    date: '2024-08-17',
+    title: 'Alien: Romulus',
+    rating: 0,
+    review: '',
+    location: 'AMC Village 7'
+  },
+  {
+    id: '126',
+    date: '2024-08-12',
+    title: 'Didi',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '127',
+    date: '2024-08-11',
+    title: 'It Ends with Us',
+    rating: 0,
+    review: '',
+    location: 'AMC Kips Bay 15'
+  },
+  {
+    id: '128',
+    date: '2024-07-30',
+    title: 'Twisters',
+    rating: 0,
+    review: '',
+    location: 'AMC Empire 25'
+  },
+  {
+    id: '129',
+    date: '2024-07-25',
+    title: 'Deadpool & Wolverine',
+    rating: 0,
+    review: '',
+    location: 'AMC Causeway 13'
   }
 ];
