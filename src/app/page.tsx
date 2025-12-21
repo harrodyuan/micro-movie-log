@@ -66,15 +66,15 @@ export default function Home() {
     return Array(5).fill(0).map((_, i) => (
       <Star 
         key={i} 
-        className={`w-3.5 h-3.5 ${i < rating ? 'fill-purple-400 text-purple-400' : 'text-gray-800'}`} 
+        className={`w-3.5 h-3.5 ${i < rating ? 'fill-white text-white' : 'text-gray-800'}`} 
       />
     ));
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-gray-100 p-4 md:p-8 font-sans selection:bg-purple-500/30 relative overflow-hidden">
-      {/* Ambient Background Glow */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none z-0" />
+    <main className="min-h-screen bg-black text-white p-4 md:p-8 font-sans selection:bg-white/30 relative overflow-hidden">
+      {/* Ambient Background Glow - Subtle White/Gray */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-white/[0.02] blur-[120px] rounded-full pointer-events-none z-0" />
       
       <div className="max-w-3xl mx-auto relative z-10">
         
@@ -86,10 +86,10 @@ export default function Home() {
         >
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h1 className="text-4xl font-bold mb-2 tracking-tight bg-gradient-to-r from-white via-purple-50 to-purple-300 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold mb-2 tracking-tight text-white">
                 Micro-Movie Log
               </h1>
-              <p className="text-gray-400">A minimalist log of films watched</p>
+              <p className="text-gray-500">A minimalist log of films watched</p>
             </div>
           </div>
           
@@ -102,19 +102,15 @@ export default function Home() {
           >
             <Link 
               href="/top10"
-              className="group relative block overflow-hidden rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-500"
+              className="group relative block overflow-hidden rounded-2xl border border-white/10 hover:border-white/40 transition-all duration-500 bg-gray-900/50"
             >
-              {/* Glass Background */}
-              <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-md" />
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent opacity-50" />
-              
               <div className="relative p-6 flex justify-between items-center">
                 <div>
-                  <h3 className="text-purple-300 text-xs font-bold uppercase tracking-widest mb-1">Featured Collection</h3>
+                  <h3 className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Featured Collection</h3>
                   <h4 className="text-xl text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Harold's Top 10 Movies 2025</h4>
-                  <p className="text-sm text-gray-400">Curated highlights & personal reviews.</p>
+                  <p className="text-sm text-gray-500">Curated highlights & personal reviews.</p>
                 </div>
-                <div className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-purple-500 group-hover:text-white group-hover:border-purple-400 transition-all duration-300">
+                <div className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-300">
                   <Trophy className="w-5 h-5" />
                 </div>
               </div>
@@ -129,26 +125,25 @@ export default function Home() {
             className="space-y-4 sticky top-4 z-50"
           >
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-lg opacity-0 group-hover:opacity-30 blur transition-opacity duration-500" />
-              <div className="relative bg-gray-900/70 backdrop-blur-xl border border-white/10 rounded-lg shadow-xl group-focus-within:border-purple-500/50 transition-colors">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 group-focus-within:text-purple-400 transition-colors" />
+              <div className="relative bg-black/80 backdrop-blur-xl border border-white/10 rounded-lg shadow-xl group-focus-within:border-white/40 transition-colors">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 group-focus-within:text-white transition-colors" />
                 <input
                   type="text"
                   placeholder="Search movies..."
-                  className="w-full pl-10 pr-4 py-3 bg-transparent text-sm focus:outline-none placeholder:text-gray-500 text-white"
+                  className="w-full pl-10 pr-4 py-3 bg-transparent text-sm focus:outline-none placeholder:text-gray-600 text-white"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
             </div>
 
-            <div className="flex flex-col space-y-4 p-4 bg-gray-900/40 backdrop-blur-md rounded-xl border border-white/10">
+            <div className="flex flex-col space-y-4 p-4 bg-black/60 backdrop-blur-md rounded-xl border border-white/10">
               {/* Stats Row */}
-              <div className="flex items-center justify-between pb-4 border-b border-white/5">
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
                 <div className="flex items-center space-x-6">
                   <div className="flex items-center space-x-2">
-                    <BarChart3 className="w-4 h-4 text-purple-400" />
-                    <span className="text-sm font-medium text-gray-200">{stats.count} <span className="text-gray-500 font-normal">Watched</span></span>
+                    <BarChart3 className="w-4 h-4 text-white" />
+                    <span className="text-sm font-medium text-gray-300">{stats.count} <span className="text-gray-500 font-normal">Watched</span></span>
                   </div>
                 </div>
               </div>
@@ -166,10 +161,10 @@ export default function Home() {
                           setSelectedMonth('All');
                         }}
                         className={cn(
-                          "px-3 py-1 text-xs rounded-full transition-all duration-300 backdrop-blur-sm",
+                          "px-3 py-1 text-xs rounded-full transition-all duration-300 font-medium",
                           selectedYear === year 
-                            ? "bg-purple-600 text-white font-medium shadow-[0_0_15px_rgba(147,51,234,0.3)] border border-purple-400/50" 
-                            : "text-gray-400 hover:text-white hover:bg-white/5"
+                            ? "bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.2)]" 
+                            : "text-gray-500 hover:text-white hover:bg-white/10"
                         )}
                       >
                         {year}
@@ -193,10 +188,10 @@ export default function Home() {
                             key={month}
                             onClick={() => setSelectedMonth(month)}
                             className={cn(
-                              "px-3 py-1 text-xs rounded-full transition-all duration-300 whitespace-nowrap backdrop-blur-sm",
+                              "px-3 py-1 text-xs rounded-full transition-all duration-300 whitespace-nowrap font-medium",
                               selectedMonth === month
-                                ? "bg-white/10 text-purple-200 font-medium border border-purple-500/30 shadow-[0_0_10px_rgba(147,51,234,0.1)]" 
-                                : "text-gray-400 hover:text-white hover:bg-white/5"
+                                ? "bg-white text-black shadow-[0_0_10px_rgba(255,255,255,0.1)]" 
+                                : "text-gray-500 hover:text-white hover:bg-white/10"
                             )}
                           >
                             {month}
@@ -224,15 +219,15 @@ export default function Home() {
                   className="relative pl-8 group"
                 >
                   {/* Timeline Dot */}
-                  <div className="absolute left-[-4px] top-2 w-[9px] h-[9px] rounded-full bg-[#050505] border-2 border-gray-800 group-hover:border-purple-400 group-hover:scale-125 transition-all duration-300 z-10 shadow-[0_0_0_4px_rgba(5,5,5,1)]" />
+                  <div className="absolute left-[-4px] top-2 w-[9px] h-[9px] rounded-full bg-black border-2 border-gray-800 group-hover:border-white group-hover:scale-125 transition-all duration-300 z-10 shadow-[0_0_0_4px_rgba(0,0,0,1)]" />
                   
-                  <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.05] hover:border-purple-500/20 hover:bg-white/[0.05] backdrop-blur-sm transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-purple-900/10">
+                  <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.05] hover:border-white/20 hover:bg-white/[0.05] backdrop-blur-sm transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-white/5">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 mb-3">
-                      <h2 className="text-lg font-medium text-white group-hover:text-purple-300 transition-colors">
+                      <h2 className="text-lg font-medium text-white group-hover:text-white transition-colors">
                         {movie.title}
                       </h2>
                       <div className="flex flex-col items-start sm:items-end shrink-0">
-                        <span className="text-xs text-gray-500 font-mono bg-black/20 px-2 py-1 rounded border border-white/5">
+                        <span className="text-xs text-gray-500 font-mono bg-white/5 px-2 py-1 rounded border border-white/5 group-hover:bg-white group-hover:text-black transition-colors duration-300">
                           {formatDate(movie.date)}
                         </span>
                       </div>
