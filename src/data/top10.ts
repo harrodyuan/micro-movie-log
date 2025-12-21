@@ -68,13 +68,13 @@ export const top10Movies: TopMovie[] = [
     title: "I'm Still Here",
     year: "2024",
     posterUrl: "/top10/9_ImStillHere.png",
-    description: "Brazil’s powerhouse political thriller. A festival favorite that delivers an emotional punch."
+    description: "I love movies with strong women and maybe some consider this movie in 2024 but I watched it in 2025 so this is in my list for movies in theater for 2025. I really liked her acting a lot. And the movie is also very profound talking about political persecution where I think Hollywood should think more about these around the world and make more movies about them."
   },
   {
     rank: 10,
     title: "Weapons",
     year: "2025",
     posterUrl: "/top10/10_Weapons.png",
-    description: "Zach Cregger’s highly anticipated horror follow-up to Barbarian. Unpredictable and intense."
+    description: "It just scared the shit out of me and it made me laugh so freaking hard. And I really liked it. The acting of Josh Brolin is very underrated and whoever did the makeup for that old lady deserves a raise."
   }
 ];
