@@ -50,7 +50,7 @@ export const movies: Movie[] = [
     date: '2025-12-02',
     title: 'Zootopia 2',
     rating: 0,
-    review: '',
+    review: 'Love it in Dolby Cinema, the color is so nice.',
     location: 'AMC 34th Street 14',
     posterUrl: '/posters/Zootopia_2.jpg'
   },
@@ -59,7 +59,7 @@ export const movies: Movie[] = [
     date: '2025-11-27',
     title: 'Hamnet',
     rating: 0,
-    review: '',
+    review: 'Chloé Zhao is a genius.',
     location: 'AMC Boston Common 19',
     posterUrl: '/posters/Hamnet.jpg'
   },
@@ -138,7 +138,7 @@ export const movies: Movie[] = [
     date: '2025-11-02',
     title: 'Back to the Future – 40th Anniversary',
     rating: 0,
-    review: '',
+    review: 'I watched it twice.',
     location: 'AMC Empire 25',
     posterUrl: '/posters/Back_to_the_Future_–_40th_Anniversary.jpg'
   },
@@ -284,7 +284,7 @@ export const movies: Movie[] = [
     date: '2025-09-25',
     title: 'One Battle After Another',
     rating: 0,
-    review: '',
+    review: "Watched in IMAX 70mm, can't forget Leo's face in Lincoln Center big-ass IMAX 70mm screen.",
     location: 'AMC Lincoln Square 13'
   },
   {
