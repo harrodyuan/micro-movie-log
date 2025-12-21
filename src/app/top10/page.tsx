@@ -16,20 +16,20 @@ export default function Top10() {
         >
           <Link 
             href="/" 
-            className="inline-flex items-center text-sm text-gray-500 hover:text-white transition-colors mb-8 group"
+            className="inline-flex items-center text-sm text-neutral-500 hover:text-white transition-colors mb-8 group"
           >
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Back to Log
           </Link>
           
           <div className="flex items-center space-x-4 mb-6">
-            <div className="p-3 bg-white/10 rounded-full border border-white/10">
+            <div className="p-3 bg-black rounded-full border border-neutral-800">
               <Trophy className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">Top 10 movies in theater 2025</h1>
           </div>
           
-          <div className="text-gray-400 space-y-6 max-w-2xl text-lg leading-relaxed font-light border-l-2 border-white/20 pl-6">
+          <div className="text-neutral-400 space-y-6 max-w-2xl text-lg leading-relaxed font-light border-l-2 border-neutral-800 pl-6">
             <p>
               I watched a lot of movies this year. In theaters. I love movies, and I make money with quant. The only way I can show my love is going to the theater and watching movies, or maybe making some movies when I have time.
             </p>
@@ -52,7 +52,7 @@ export default function Top10() {
               className="group flex flex-col md:flex-row gap-8 pb-12 last:pb-0"
             >
               {/* Poster Card */}
-              <div className="relative shrink-0 w-full md:w-56 aspect-[2/3] rounded-xl overflow-hidden shadow-2xl bg-gray-900 group-hover:scale-[1.02] transition-transform duration-500 ring-1 ring-white/10 group-hover:ring-white/30">
+              <div className="relative shrink-0 w-full md:w-56 aspect-[2/3] rounded-xl overflow-hidden shadow-2xl bg-black group-hover:scale-[1.02] transition-transform duration-500 ring-1 ring-neutral-800 group-hover:ring-white">
                 {movie.posterUrl ? (
                   <img 
                     src={movie.posterUrl} 
@@ -60,27 +60,27 @@ export default function Top10() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-600 bg-gray-900">
+                  <div className="w-full h-full flex items-center justify-center text-neutral-600 bg-black">
                     No Poster
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
               
               {/* Content */}
               <div className="flex-1 py-2 flex flex-col justify-center">
                 <div className="flex items-center gap-4 mb-3">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full border border-gray-700 text-gray-400 font-mono text-sm group-hover:border-white group-hover:text-white transition-colors shadow-[0_0_10px_rgba(0,0,0,0)] group-hover:shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full border border-neutral-700 text-neutral-500 font-mono text-sm group-hover:border-white group-hover:text-white transition-colors">
                     {movie.rank}
                   </span>
-                  <span className="text-sm font-mono text-gray-600 group-hover:text-gray-400 transition-colors">{movie.year}</span>
+                  <span className="text-sm font-mono text-neutral-600 group-hover:text-neutral-400 transition-colors">{movie.year}</span>
                 </div>
                 
-                <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-gray-200 transition-colors">
+                <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-white transition-colors">
                   {movie.title}
                 </h2>
                 
-                <p className="text-gray-400 leading-relaxed text-lg font-light border-l border-gray-800 pl-6 group-hover:border-white/30 transition-colors">
+                <p className="text-neutral-400 leading-relaxed text-lg font-light border-l border-neutral-800 pl-6 group-hover:border-white/50 transition-colors">
                   {movie.description}
                 </p>
               </div>
