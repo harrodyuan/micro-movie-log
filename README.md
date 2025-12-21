@@ -1,8 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Moving Image Data Base (MIDB)
+
+A minimalist, high-performance log for movies and moving images. Built with Next.js, Tailwind CSS, and Framer Motion.
+
+![MIDB Preview](./public/preview.png)
+
+## Design Philosophy
+**"Rich Minimalism"**
+- **Monochrome**: Pure Black & White (OLED friendly). No greys, no blues.
+- **System Fonts**: Uses Apple's native San Francisco font stack for a premium, OS-integrated feel.
+- **Focus**: Content first. No cheap icons or unnecessary metadata.
+
+## Features
+- **Timeline View**: A clean, chronological log of watched content.
+- **Top 10 Collections**: Curated lists with rich visuals.
+- **Search & Filter**: Instant filtering by year, month, and search query.
+- **Responsive**: Perfectly adapted for Mobile and Desktop.
+
+## Tech Stack
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Deployment**: Vercel
+
+## Roadmap & TODOs
+### Phase 1: Content Expansion
+- [ ] **Shorts Support**: Add support for rating TikToks, Reels, and YouTube Shorts.
+- [ ] **Tagging System**: Add `type` tags (Movie, Short, Ad, Music Video).
+
+### Phase 2: Social & "Beli for Movies"
+- [ ] **Authentication**: User accounts to create their own logs.
+- [ ] **Comparison Mode**: "Which is better?" A/B testing for building personal rankings.
+- [ ] **The Stack**: Visualizing watched content as a stack of digital tickets.
+
+### Phase 3: Platform
+- [ ] **Public Profiles**: `midb.com/username` sharing.
+- [ ] **Import/Export**: Easy migration from Letterboxd.
 
 ## Getting Started
-
-First, run the development server:
 
 ```bash
 npm run dev
