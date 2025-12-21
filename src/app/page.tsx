@@ -88,13 +88,13 @@ export default function Home() {
 
             {/* Main Navigation Tabs */}
             <div className="flex justify-center items-center space-x-1 p-1 bg-neutral-900/50 backdrop-blur-md rounded-full inline-flex border border-neutral-800">
-              <button className="px-6 py-2 rounded-full text-sm font-medium bg-white text-black shadow-lg">
+              <Link href="/" className="px-6 py-2 rounded-full text-sm font-medium bg-white text-black shadow-lg">
                 Log
-              </button>
-              <button className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+              </Link>
+              <Link href="/rankings" className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors">
                 Rankings
-              </button>
-              <button className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+              </Link>
+              <button className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors cursor-not-allowed opacity-50">
                 Reviews
               </button>
             </div>
