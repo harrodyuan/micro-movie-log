@@ -1107,5 +1107,126 @@ export const movies: Movie[] = [
     rating: 0,
     review: '',
     location: 'AMC Causeway 13'
+  },
+  // 2022 Movies
+  {
+    id: '130',
+    date: '2022-11-11',
+    title: 'Black Panther: Wakanda Forever',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '131',
+    date: '2022-11-09',
+    title: 'Black Adam',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '132',
+    date: '2022-11-09',
+    title: 'Black Adam',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '133',
+    date: '2022-10-08',
+    title: 'Amsterdam',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '134',
+    date: '2022-10-02',
+    title: 'Avatar (Re-Release 2022)',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '135',
+    date: '2022-09-25',
+    title: 'Moonage Daydream',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '136',
+    date: '2022-09-23',
+    title: 'Avatar (Re-Release 2022)',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '137',
+    date: '2022-09-23',
+    title: "Don't Worry Darling",
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '138',
+    date: '2022-09-03',
+    title: 'Spider-Man: No Way Home',
+    rating: 0,
+    review: '',
+    location: 'AMC Georgetown 14'
+  },
+  {
+    id: '139',
+    date: '2022-08-28',
+    title: 'Elvis',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '140',
+    date: '2022-08-26',
+    title: 'Orphan: First Kill',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '141',
+    date: '2022-08-26',
+    title: 'The Invitation',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '142',
+    date: '2022-08-13',
+    title: 'Bodies Bodies Bodies',
+    rating: 0,
+    review: '',
+    location: 'AMC DINE-IN Holly Springs 9'
+  },
+  {
+    id: '143',
+    date: '2022-08-11',
+    title: 'E.T. - THE EXTRA-TERRESTRIAL - 40th Anniversary',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '144',
+    date: '2022-08-10',
+    title: 'Bullet Train',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
   }
 ];
