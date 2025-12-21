@@ -8,6 +8,7 @@ import { movies } from '@/data/movies';
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedYear, setSelectedYear] = useState<string>('All');
+  const [selectedMonth, setSelectedMonth] = useState<string>('All');
 
   // Extract available years from data
   const years = useMemo(() => {
@@ -15,16 +16,29 @@ export default function Home() {
     return ['All', ...uniqueYears.sort((a, b) => b.localeCompare(a))];
   }, []);
 
+  // Extract available months for the selected year
+  const months = useMemo(() => {
+    if (selectedYear === 'All') return [];
+    const uniqueMonths = Array.from(new Set(
+      movies
+        .filter(m => new Date(m.date).getFullYear().toString() === selectedYear)
+        .map(m => new Date(m.date).getMonth())
+    ));
+    return ['All', ...uniqueMonths.sort((a, b) => a - b).map(m => new Date(2000, m).toLocaleString('default', { month: 'short' }))];
+  }, [selectedYear]);
+
   const filteredMovies = useMemo(() => {
     return movies
       .filter(movie => {
         const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           movie.review.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesYear = selectedYear === 'All' || new Date(movie.date).getFullYear().toString() === selectedYear;
-        return matchesSearch && matchesYear;
+        const movieDate = new Date(movie.date);
+        const matchesYear = selectedYear === 'All' || movieDate.getFullYear().toString() === selectedYear;
+        const matchesMonth = selectedMonth === 'All' || movieDate.toLocaleString('default', { month: 'short' }) === selectedMonth;
+        return matchesSearch && matchesYear && matchesMonth;
       })
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, [searchQuery, selectedYear]);
+  }, [searchQuery, selectedYear, selectedMonth]);
 
   const stats = useMemo(() => {
     return {
@@ -55,10 +69,31 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-gray-100 p-4 md:p-8 max-w-3xl mx-auto font-sans selection:bg-gray-800">
-      <header className="mb-12">
+      <header className="mb-8">
         <h1 className="text-3xl font-bold mb-2 tracking-tight text-white">Micro-Movie Log</h1>
         <p className="text-gray-400 mb-8">A minimalist log of films watched</p>
         
+        {/* Lists / Blog Section - Moved to Top */}
+        <section className="mb-8">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Lists & Collections</h3>
+          <ul className="space-y-4">
+            <li>
+              <Link 
+                href="/top10"
+                className="group block p-4 rounded-xl bg-gray-900/30 hover:bg-gray-900 border border-gray-800 hover:border-gray-700 transition-all duration-300"
+              >
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h4 className="text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Harold's Top 10 Movies in Theater (2025)</h4>
+                    <p className="text-sm text-gray-500">My curated highlights from a year of cinema.</p>
+                  </div>
+                  <Trophy className="w-5 h-5 text-gray-600 group-hover:text-yellow-500 transition-colors" />
+                </div>
+              </Link>
+            </li>
+          </ul>
+        </section>
+
         {/* Search and Filter Section */}
         <div className="space-y-4">
           <div className="relative">
@@ -72,8 +107,9 @@ export default function Home() {
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800/50 backdrop-blur-sm">
-            <div className="flex items-center space-x-6">
+          <div className="flex flex-col space-y-4 p-4 bg-gray-900/50 rounded-lg border border-gray-800/50 backdrop-blur-sm">
+            {/* Stats Row */}
+            <div className="flex items-center space-x-6 pb-4 border-b border-gray-800/50">
               <div className="flex items-center space-x-2">
                 <BarChart3 className="w-4 h-4 text-gray-400" />
                 <span className="text-sm font-medium text-gray-200">{stats.count} <span className="text-gray-500 font-normal">Movies</span></span>
@@ -84,23 +120,52 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Year</span>
-              <div className="flex space-x-1">
-                {years.map(year => (
-                  <button
-                    key={year}
-                    onClick={() => setSelectedYear(year)}
-                    className={`px-3 py-1 text-xs rounded-full transition-colors ${
-                      selectedYear === year 
-                        ? 'bg-white text-black font-medium' 
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                    }`}
-                  >
-                    {year}
-                  </button>
-                ))}
+            {/* Filters Row */}
+            <div className="flex flex-wrap gap-4 items-center justify-between">
+              {/* Year Filter */}
+              <div className="flex items-center space-x-2">
+                <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Year</span>
+                <div className="flex space-x-1">
+                  {years.map(year => (
+                    <button
+                      key={year}
+                      onClick={() => {
+                        setSelectedYear(year);
+                        setSelectedMonth('All'); // Reset month when year changes
+                      }}
+                      className={`px-3 py-1 text-xs rounded-full transition-colors ${
+                        selectedYear === year 
+                          ? 'bg-white text-black font-medium' 
+                          : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                      }`}
+                    >
+                      {year}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              {/* Month Filter (only shows if a year is selected) */}
+              {selectedYear !== 'All' && months.length > 0 && (
+                <div className="flex items-center space-x-2 overflow-x-auto pb-1 max-w-full">
+                  <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold shrink-0">Month</span>
+                  <div className="flex space-x-1">
+                    {months.map(month => (
+                      <button
+                        key={month}
+                        onClick={() => setSelectedMonth(month)}
+                        className={`px-3 py-1 text-xs rounded-full transition-colors whitespace-nowrap ${
+                          selectedMonth === month
+                            ? 'bg-gray-700 text-white font-medium' 
+                            : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                        }`}
+                      >
+                        {month}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -153,27 +218,6 @@ export default function Home() {
           </div>
         )}
       </div>
-
-      {/* Lists / Blog Section */}
-      <section className="mt-24 pt-10 border-t border-gray-900">
-        <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6">Lists & Collections</h3>
-        <ul className="space-y-4">
-          <li>
-            <Link 
-              href="/top10"
-              className="group block p-4 rounded-xl bg-gray-900/30 hover:bg-gray-900 border border-gray-800 hover:border-gray-700 transition-all duration-300"
-            >
-              <div className="flex justify-between items-center">
-                <div>
-                  <h4 className="text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Harold's Top 10 Movies in Theater (2025)</h4>
-                  <p className="text-sm text-gray-500">My curated highlights from a year of cinema.</p>
-                </div>
-                <Trophy className="w-5 h-5 text-gray-600 group-hover:text-yellow-500 transition-colors" />
-              </div>
-            </Link>
-          </li>
-        </ul>
-      </section>
 
       <footer className="mt-16 text-center text-xs text-gray-700 pb-8">
         <p>Micro-Movie Log — {new Date().getFullYear()}</p>
