@@ -54,14 +54,14 @@ export const top10Movies: TopMovie[] = [
     title: "Brokeback Mountain: 20th Anniversary",
     year: "2005/2025",
     posterUrl: "/top10/7_BrokebackMountain.png",
-    description: "Returning to theaters, this heartbreaking romance remains a landmark film. Ledger and Gyllenhaal's performances are timeless."
+    description: "I do not know why I did not find a chance to watch it all the time but I am glad that I did, and on big screen as well. I love it a lot. It is a great story. Great acting. Great camera. I really want to talk to Ang Lee one day about sex. He seems to have such diverse knowledge about sex and all kinds."
   },
   {
     rank: 8,
     title: "Sinners",
     year: "2025",
     posterUrl: "/top10/8_Sinners.png",
-    description: "Ryan Coogler’s vampire horror hit. The theater energy was unmatched for this one."
+    description: "IMAX 70MM again in Lincoln Center. There were some switch between 70mm and normal ratio from time to time. Great work out, Michael B Jordan!"
   },
   {
     rank: 9,

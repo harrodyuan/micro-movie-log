@@ -18,7 +18,7 @@ export default function Top10() {
         
         <div className="flex items-center space-x-3 mb-8">
           <Trophy className="w-8 h-8 text-yellow-500" />
-          <h1 className="text-3xl font-bold text-foreground">Top 10 movies in theater for Harold</h1>
+          <h1 className="text-3xl font-bold text-foreground">Top 10 movies in theater 2025</h1>
         </div>
         <div className="text-gray-600 dark:text-gray-400 space-y-6 max-w-2xl text-lg leading-relaxed">
           <p>
