@@ -207,7 +207,7 @@ export const movies: Movie[] = [
     date: '2025-10-14',
     title: 'Roofman',
     rating: 0,
-    review: '',
+    review: 'I watched it twice. Very soft, very touchy, very cute, a decently profound story but every story is profound if you really think about them.',
     location: 'AMC Village 7',
     posterUrl: '/posters/Roofman.jpg'
   },
@@ -301,7 +301,7 @@ export const movies: Movie[] = [
     date: '2025-09-20',
     title: 'Apollo 13: 30th Anniversary',
     rating: 0,
-    review: '',
+    review: 'Happy to watch in IMAX again in theater. Good movie for a big IMAX screen.',
     location: 'AMC Kips Bay 15',
     posterUrl: '/posters/Apollo_13_30th_Anniversary.jpg'
   },
