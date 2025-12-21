@@ -67,10 +67,10 @@ export default function Top10() {
               {/* Content */}
               <div className="flex-1 py-2 flex flex-col justify-center">
                 <div className="flex items-center gap-4 mb-3">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full border border-neutral-700 text-neutral-500 font-mono text-sm group-hover:border-white group-hover:text-white transition-colors">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full border border-neutral-700 text-neutral-500 font-sans text-sm group-hover:border-white group-hover:text-white transition-colors">
                     {movie.rank}
                   </span>
-                  <span className="text-sm font-mono text-neutral-600 group-hover:text-neutral-400 transition-colors">{movie.year}</span>
+                  <span className="text-sm text-neutral-600 group-hover:text-neutral-400 transition-colors">{movie.year}</span>
                 </div>
                 
                 <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-white transition-colors">

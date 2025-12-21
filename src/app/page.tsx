@@ -220,7 +220,7 @@ export default function Home() {
                         {movie.title}
                       </h2>
                       <div className="flex flex-col items-start sm:items-end shrink-0">
-                        <span className="text-xs text-neutral-500 font-mono bg-black px-2 py-1 rounded border border-neutral-900 group-hover:border-white group-hover:text-white transition-colors duration-300">
+                        <span className="text-xs text-neutral-500 bg-black px-2 py-1 rounded border border-neutral-900 group-hover:border-white group-hover:text-white transition-colors duration-300">
                           {formatDate(movie.date)}
                         </span>
                       </div>
