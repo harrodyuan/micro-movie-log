@@ -1228,5 +1228,166 @@ export const movies: Movie[] = [
     rating: 0,
     review: '',
     location: 'AMC Southpoint 17'
+  },
+  // 2023 Movies
+  {
+    id: '145',
+    date: '2023-05-11',
+    title: 'Guardians of the Galaxy Vol. 3',
+    rating: 0,
+    review: '',
+    location: 'AMC DINE-IN Holly Springs 9'
+  },
+  {
+    id: '146',
+    date: '2023-04-14',
+    title: 'Suzume',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '147',
+    date: '2023-04-06',
+    title: 'Air (2023)',
+    rating: 0,
+    review: '',
+    location: 'AMC DINE-IN Block 37'
+  },
+  {
+    id: '148',
+    date: '2023-04-05',
+    title: 'The Super Mario Bros. Movie',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '149',
+    date: '2023-03-31',
+    title: 'Dungeons & Dragons: Honor Among Thieves',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '150',
+    date: '2023-03-26',
+    title: 'Shazam! Fury Of The Gods',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '151',
+    date: '2023-03-25',
+    title: 'John Wick: Chapter 4',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '152',
+    date: '2023-02-24',
+    title: 'Cocaine Bear',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '153',
+    date: '2023-02-17',
+    title: 'Ant-Man and the Wasp: Quantumania',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '154',
+    date: '2023-02-12',
+    title: 'Missing',
+    rating: 0,
+    review: '',
+    location: 'AMC Boston Common 19'
+  },
+  {
+    id: '155',
+    date: '2023-02-11',
+    title: 'The Whale',
+    rating: 0,
+    review: '',
+    location: 'AMC Boston Common 19'
+  },
+  {
+    id: '156',
+    date: '2023-02-05',
+    title: 'Triangle of Sadness',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '157',
+    date: '2023-02-05',
+    title: 'Triangle of Sadness',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '158',
+    date: '2023-02-03',
+    title: 'Knock at the Cabin',
+    rating: 0,
+    review: '',
+    location: 'AMC DINE-IN Holly Springs 9'
+  },
+  {
+    id: '159',
+    date: '2023-01-29',
+    title: 'Missing',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '160',
+    date: '2023-01-29',
+    title: 'Alice, Darling',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '161',
+    date: '2023-01-23',
+    title: 'The Wandering Earth 2',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '162',
+    date: '2023-01-23',
+    title: 'The Wandering Earth 2',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '163',
+    date: '2023-01-16',
+    title: 'Plane',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
+  },
+  {
+    id: '164',
+    date: '2023-01-16',
+    title: 'Plane',
+    rating: 0,
+    review: '',
+    location: 'AMC Southpoint 17'
   }
 ];
