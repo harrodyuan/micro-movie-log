@@ -1,75 +1,97 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, Trophy } from 'lucide-react';
+import { ArrowLeft, Trophy, Star } from 'lucide-react';
 import { top10Movies } from '@/data/top10';
+import { motion } from 'framer-motion';
 
 export default function Top10() {
   return (
-    <main className="min-h-screen bg-background p-4 md:p-8 max-w-3xl mx-auto transition-colors duration-300">
-      <header className="mb-12">
-        <Link 
-          href="/" 
-          className="inline-flex items-center text-sm text-gray-500 hover:text-black dark:hover:text-white transition-colors mb-6"
+    <main className="min-h-screen bg-[#050505] text-gray-100 p-4 md:p-8 font-sans selection:bg-yellow-500/30">
+      <div className="max-w-4xl mx-auto">
+        <motion.header 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-16 pt-8"
         >
-          <ArrowLeft className="w-4 h-4 mr-1" />
-          Back to Log
-        </Link>
-        
-        <div className="flex items-center space-x-3 mb-8">
-          <Trophy className="w-8 h-8 text-yellow-500" />
-          <h1 className="text-3xl font-bold text-foreground">Top 10 movies in theater 2025</h1>
-        </div>
-        <div className="text-gray-600 dark:text-gray-400 space-y-6 max-w-2xl text-lg leading-relaxed">
-          <p>
-            I watched a lot of movies this year. In theaters. I love movies, and I make money with quant. The only way I can show my love is going to the theater and watching movies, or maybe making some movies when I have time.
-          </p>
-          <p>
-            This year my 90% confidence interval of the number of movies that I watched in theaters would be bid 99 ask 120 from Jan. 16th to Dec 20th (as of today). I watched them in Dolby, IMAX, IMAX 3D, IMAX 70mm, and other formats.
-          </p>
-          <p className="font-medium text-foreground">
-            Here are my top 10 movies IN THEATER for 2025:
-          </p>
-        </div>
-      </header>
-
-      <div className="space-y-12">
-        {top10Movies.map((movie) => (
-          <article 
-            key={movie.rank} 
-            className="flex flex-col md:flex-row gap-6 border-b border-gray-100 dark:border-gray-800 pb-12 last:border-b-0 last:pb-0"
+          <Link 
+            href="/" 
+            className="inline-flex items-center text-sm text-gray-500 hover:text-yellow-500 transition-colors mb-8 group"
           >
-            <div className="relative shrink-0 w-full md:w-48 aspect-[2/3] rounded-lg overflow-hidden shadow-md bg-gray-100 dark:bg-gray-800">
-              {movie.posterUrl ? (
-                <img 
-                  src={movie.posterUrl} 
-                  alt={movie.title}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-400">
-                  No Poster
-                </div>
-              )}
+            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+            Back to Log
+          </Link>
+          
+          <div className="flex items-center space-x-4 mb-6">
+            <div className="p-3 bg-yellow-500/10 rounded-full">
+              <Trophy className="w-8 h-8 text-yellow-500" />
             </div>
-            
-            <div className="flex-1 py-2">
-              <div className="flex justify-between items-baseline mb-2">
-                <h2 className="text-2xl font-bold text-foreground">{movie.title}</h2>
-                <span className="text-sm font-mono text-gray-500">{movie.year}</span>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">Top 10 movies in theater 2025</h1>
+          </div>
+          
+          <div className="text-gray-400 space-y-6 max-w-2xl text-lg leading-relaxed font-light border-l-2 border-gray-800 pl-6">
+            <p>
+              I watched a lot of movies this year. In theaters. I love movies, and I make money with quant. The only way I can show my love is going to the theater and watching movies, or maybe making some movies when I have time.
+            </p>
+            <p>
+              This year my 90% confidence interval of the number of movies that I watched in theaters would be bid 99 ask 120 from Jan. 16th to Dec 20th (as of today). I watched them in Dolby, IMAX, IMAX 3D, IMAX 70mm, and other formats.
+            </p>
+            <p className="font-medium text-white pt-2">
+              Here are my top 10 movies IN THEATER for 2025:
+            </p>
+          </div>
+        </motion.header>
+
+        <div className="space-y-12">
+          {top10Movies.map((movie, index) => (
+            <motion.article 
+              key={movie.rank} 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className="group flex flex-col md:flex-row gap-8 pb-12 last:pb-0"
+            >
+              {/* Poster Card */}
+              <div className="relative shrink-0 w-full md:w-56 aspect-[2/3] rounded-xl overflow-hidden shadow-2xl bg-gray-900 group-hover:scale-[1.02] transition-transform duration-500 ring-1 ring-white/10">
+                {movie.posterUrl ? (
+                  <img 
+                    src={movie.posterUrl} 
+                    alt={movie.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-600 bg-gray-900">
+                    No Poster
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
               
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
-                {movie.description}
-              </p>
-            </div>
-          </article>
-        ))}
-      </div>
+              {/* Content */}
+              <div className="flex-1 py-2 flex flex-col justify-center">
+                <div className="flex items-center gap-4 mb-3">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full border border-gray-700 text-gray-400 font-mono text-sm group-hover:border-yellow-500 group-hover:text-yellow-500 transition-colors">
+                    {movie.rank}
+                  </span>
+                  <span className="text-sm font-mono text-gray-600">{movie.year}</span>
+                </div>
+                
+                <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-yellow-500 transition-colors">
+                  {movie.title}
+                </h2>
+                
+                <p className="text-gray-400 leading-relaxed text-lg font-light border-l border-gray-800 pl-6 group-hover:border-yellow-500/50 transition-colors">
+                  {movie.description}
+                </p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
 
-      <footer className="mt-16 text-center text-sm text-gray-500">
-        <p>Micro-Movie Log — {new Date().getFullYear()}</p>
-      </footer>
+        <footer className="mt-24 pt-12 border-t border-gray-900 text-center text-sm text-gray-600">
+          <p>Micro-Movie Log — {new Date().getFullYear()}</p>
+        </footer>
+      </div>
     </main>
   );
 }

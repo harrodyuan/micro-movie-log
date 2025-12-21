@@ -2,8 +2,15 @@
 
 import Link from 'next/link';
 import { useState, useMemo } from 'react';
-import { Search, Star, Calendar, MapPin, Trophy, Filter, BarChart3 } from 'lucide-react';
+import { Search, Star, MapPin, Trophy, BarChart3, TrendingUp } from 'lucide-react';
 import { movies } from '@/data/movies';
+import { motion, AnimatePresence } from 'framer-motion';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -62,166 +69,212 @@ export default function Home() {
     return Array(5).fill(0).map((_, i) => (
       <Star 
         key={i} 
-        className={`w-3.5 h-3.5 ${i < rating ? 'fill-white text-white' : 'text-gray-600'}`} 
+        className={`w-3.5 h-3.5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-700'}`} 
       />
     ));
   };
 
   return (
-    <main className="min-h-screen bg-black text-gray-100 p-4 md:p-8 max-w-3xl mx-auto font-sans selection:bg-gray-800">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 tracking-tight text-white">Micro-Movie Log</h1>
-        <p className="text-gray-400 mb-8">A minimalist log of films watched</p>
+    <main className="min-h-screen bg-[#050505] text-gray-100 p-4 md:p-8 font-sans selection:bg-yellow-500/30">
+      <div className="max-w-3xl mx-auto">
         
-        {/* Lists / Blog Section - Moved to Top */}
-        <section className="mb-8">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Lists & Collections</h3>
-          <ul className="space-y-4">
-            <li>
-              <Link 
-                href="/top10"
-                className="group block p-4 rounded-xl bg-gray-900/30 hover:bg-gray-900 border border-gray-800 hover:border-gray-700 transition-all duration-300"
-              >
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h4 className="text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Harold's Top 10 Movies in Theater (2025)</h4>
-                    <p className="text-sm text-gray-500">My curated highlights from a year of cinema.</p>
-                  </div>
-                  <Trophy className="w-5 h-5 text-gray-600 group-hover:text-yellow-500 transition-colors" />
-                </div>
-              </Link>
-            </li>
-          </ul>
-        </section>
-
-        {/* Search and Filter Section */}
-        <div className="space-y-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Search movies..."
-              className="w-full pl-10 pr-4 py-2.5 bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:border-gray-600 focus:ring-1 focus:ring-gray-600 transition-all text-sm"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+        {/* Header Section */}
+        <motion.header 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <h1 className="text-4xl font-bold mb-2 tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Micro-Movie Log
+              </h1>
+              <p className="text-gray-400">A minimalist log of films watched</p>
+            </div>
           </div>
-
-          <div className="flex flex-col space-y-4 p-4 bg-gray-900/50 rounded-lg border border-gray-800/50 backdrop-blur-sm">
-            {/* Stats Row */}
-            <div className="flex items-center space-x-6 pb-4 border-b border-gray-800/50">
-              <div className="flex items-center space-x-2">
-                <BarChart3 className="w-4 h-4 text-gray-400" />
-                <span className="text-sm font-medium text-gray-200">{stats.count} <span className="text-gray-500 font-normal">Movies</span></span>
+          
+          {/* Lists / Collections Card */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
+            className="mb-8"
+          >
+            <Link 
+              href="/top10"
+              className="group relative block overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 border border-gray-800 hover:border-yellow-500/50 transition-all duration-500"
+            >
+              <div className="absolute inset-0 bg-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative p-6 flex justify-between items-center">
+                <div>
+                  <h3 className="text-yellow-500 text-xs font-bold uppercase tracking-widest mb-1">Featured Collection</h3>
+                  <h4 className="text-xl text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Harold's Top 10 Movies 2025</h4>
+                  <p className="text-sm text-gray-400">Curated highlights & personal reviews.</p>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-black transition-all duration-300">
+                  <Trophy className="w-5 h-5" />
+                </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <Star className="w-4 h-4 text-gray-400" />
-                <span className="text-sm font-medium text-gray-200">{stats.averageRating} <span className="text-gray-500 font-normal">Avg</span></span>
+            </Link>
+          </motion.div>
+
+          {/* Search and Filters Dashboard */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-4 sticky top-4 z-50"
+          >
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg opacity-0 group-hover:opacity-20 blur transition-opacity duration-500" />
+              <div className="relative bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-lg shadow-xl">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+                <input
+                  type="text"
+                  placeholder="Search movies..."
+                  className="w-full pl-10 pr-4 py-3 bg-transparent text-sm focus:outline-none placeholder:text-gray-600 text-white"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </div>
             </div>
 
-            {/* Filters Row */}
-            <div className="flex flex-wrap gap-4 items-center justify-between">
-              {/* Year Filter */}
-              <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Year</span>
-                <div className="flex space-x-1">
-                  {years.map(year => (
-                    <button
-                      key={year}
-                      onClick={() => {
-                        setSelectedYear(year);
-                        setSelectedMonth('All'); // Reset month when year changes
-                      }}
-                      className={`px-3 py-1 text-xs rounded-full transition-colors ${
-                        selectedYear === year 
-                          ? 'bg-white text-black font-medium' 
-                          : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                      }`}
-                    >
-                      {year}
-                    </button>
-                  ))}
+            <div className="flex flex-col space-y-4 p-4 bg-gray-900/60 backdrop-blur-md rounded-xl border border-gray-800">
+              {/* Stats Row */}
+              <div className="flex items-center justify-between pb-4 border-b border-gray-800/50">
+                <div className="flex items-center space-x-6">
+                  <div className="flex items-center space-x-2">
+                    <BarChart3 className="w-4 h-4 text-purple-400" />
+                    <span className="text-sm font-medium text-gray-200">{stats.count} <span className="text-gray-500 font-normal">Watched</span></span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <TrendingUp className="w-4 h-4 text-green-400" />
+                    <span className="text-sm font-medium text-gray-200">{stats.averageRating} <span className="text-gray-500 font-normal">Avg Rating</span></span>
+                  </div>
                 </div>
               </div>
 
-              {/* Month Filter (only shows if a year is selected) */}
-              {selectedYear !== 'All' && months.length > 0 && (
-                <div className="flex items-center space-x-2 overflow-x-auto pb-1 max-w-full">
-                  <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold shrink-0">Month</span>
+              {/* Filters Row */}
+              <div className="flex flex-wrap gap-4 items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Year</span>
                   <div className="flex space-x-1">
-                    {months.map(month => (
+                    {years.map(year => (
                       <button
-                        key={month}
-                        onClick={() => setSelectedMonth(month)}
-                        className={`px-3 py-1 text-xs rounded-full transition-colors whitespace-nowrap ${
-                          selectedMonth === month
-                            ? 'bg-gray-700 text-white font-medium' 
-                            : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                        }`}
+                        key={year}
+                        onClick={() => {
+                          setSelectedYear(year);
+                          setSelectedMonth('All');
+                        }}
+                        className={cn(
+                          "px-3 py-1 text-xs rounded-full transition-all duration-300",
+                          selectedYear === year 
+                            ? "bg-white text-black font-medium shadow-[0_0_10px_rgba(255,255,255,0.3)]" 
+                            : "text-gray-400 hover:text-white hover:bg-gray-800"
+                        )}
                       >
-                        {month}
+                        {year}
                       </button>
                     ))}
                   </div>
                 </div>
-              )}
+
+                <AnimatePresence>
+                  {selectedYear !== 'All' && months.length > 0 && (
+                    <motion.div 
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                      className="flex items-center space-x-3 overflow-x-auto pb-1 max-w-full no-scrollbar"
+                    >
+                      <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold shrink-0">Month</span>
+                      <div className="flex space-x-1">
+                        {months.map(month => (
+                          <button
+                            key={month}
+                            onClick={() => setSelectedMonth(month)}
+                            className={cn(
+                              "px-3 py-1 text-xs rounded-full transition-all duration-300 whitespace-nowrap",
+                              selectedMonth === month
+                                ? "bg-gray-800 text-white font-medium border border-gray-600" 
+                                : "text-gray-400 hover:text-white hover:bg-gray-800/50"
+                            )}
+                          >
+                            {month}
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
-          </div>
+          </motion.div>
+        </motion.header>
+
+        {/* Timeline List */}
+        <div className="relative pl-4 space-y-8 before:content-[''] before:absolute before:left-0 before:top-2 before:bottom-2 before:w-[1px] before:bg-gradient-to-b before:from-transparent before:via-gray-800 before:to-transparent">
+          <AnimatePresence mode="popLayout">
+            {filteredMovies.length > 0 ? (
+              filteredMovies.map((movie, index) => (
+                <motion.article 
+                  key={movie.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="relative pl-8 group"
+                >
+                  {/* Timeline Dot */}
+                  <div className="absolute left-[-4px] top-2 w-[9px] h-[9px] rounded-full bg-black border-2 border-gray-700 group-hover:border-white group-hover:scale-125 transition-all duration-300 z-10 shadow-[0_0_0_4px_rgba(0,0,0,1)]" />
+                  
+                  <div className="p-5 rounded-2xl bg-gray-900/20 border border-transparent hover:border-gray-800 hover:bg-gray-900/40 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-black/50">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 mb-3">
+                      <h2 className="text-lg font-medium text-white group-hover:text-yellow-500 transition-colors">
+                        {movie.title}
+                      </h2>
+                      <div className="flex flex-col items-start sm:items-end shrink-0">
+                        <span className="text-xs text-gray-500 font-mono bg-gray-900 px-2 py-1 rounded border border-gray-800">
+                          {formatDate(movie.date)}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center mb-4 space-x-4">
+                      <div className="flex space-x-0.5">
+                        {renderStars(movie.rating)}
+                      </div>
+                      {movie.location && (
+                        <span className="text-xs text-gray-500 flex items-center bg-gray-900/50 px-2 py-0.5 rounded-full">
+                          <MapPin className="w-3 h-3 mr-1.5" />
+                          {movie.location}
+                        </span>
+                      )}
+                    </div>
+                    
+                    {movie.review && (
+                      <p className="text-sm text-gray-400 leading-relaxed max-w-2xl font-light">
+                        {movie.review}
+                      </p>
+                    )}
+                  </div>
+                </motion.article>
+              ))
+            ) : (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-20 pl-4"
+              >
+                <p className="text-gray-600">No movies found.</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </header>
 
-      {/* Timeline List */}
-      <div className="relative pl-4 space-y-8 before:content-[''] before:absolute before:left-0 before:top-2 before:bottom-2 before:w-[1px] before:bg-gradient-to-b before:from-gray-800 before:via-gray-700 before:to-gray-800">
-        {filteredMovies.length > 0 ? (
-          filteredMovies.map((movie, index) => (
-            <article 
-              key={movie.id} 
-              className="relative pl-6 group"
-            >
-              {/* Timeline Dot */}
-              <div className="absolute left-[-4.5px] top-1.5 w-[9px] h-[9px] rounded-full bg-black border border-gray-600 group-hover:border-white group-hover:scale-125 transition-all duration-300 z-10" />
-              
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 mb-2">
-                <h2 className="text-lg font-medium text-white group-hover:text-gray-200 transition-colors">
-                  {movie.title}
-                </h2>
-                <div className="flex flex-col items-start sm:items-end shrink-0">
-                  <span className="text-xs text-gray-500 font-mono flex items-center">
-                    {formatDate(movie.date)}
-                  </span>
-                </div>
-              </div>
-              
-              <div className="flex items-center mb-3 space-x-3">
-                <div className="flex space-x-0.5">
-                  {renderStars(movie.rating)}
-                </div>
-                {movie.location && (
-                  <span className="text-xs text-gray-600 flex items-center">
-                    <MapPin className="w-3 h-3 mr-1" />
-                    {movie.location}
-                  </span>
-                )}
-              </div>
-              
-              {movie.review && (
-                <p className="text-sm text-gray-400 leading-relaxed max-w-2xl">
-                  {movie.review}
-                </p>
-              )}
-            </article>
-          ))
-        ) : (
-          <div className="text-center py-12 pl-4">
-            <p className="text-gray-600">No movies found for this filter.</p>
-          </div>
-        )}
+        <footer className="mt-24 text-center text-xs text-gray-700 pb-8">
+          <p>Micro-Movie Log — {new Date().getFullYear()}</p>
+        </footer>
       </div>
-
-      <footer className="mt-16 text-center text-xs text-gray-700 pb-8">
-        <p>Micro-Movie Log — {new Date().getFullYear()}</p>
-      </footer>
     </main>
   );
 }
