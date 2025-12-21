@@ -75,7 +75,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-gray-100 p-4 md:p-8 font-sans selection:bg-yellow-500/30">
+    <main className="min-h-screen bg-[#050505] text-gray-100 p-4 md:p-8 font-sans selection:bg-purple-500/30">
       <div className="max-w-3xl mx-auto">
         
         {/* Header Section */}
@@ -86,7 +86,7 @@ export default function Home() {
         >
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h1 className="text-4xl font-bold mb-2 tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold mb-2 tracking-tight bg-gradient-to-r from-white via-purple-100 to-purple-400 bg-clip-text text-transparent">
                 Micro-Movie Log
               </h1>
               <p className="text-gray-400">A minimalist log of films watched</p>
@@ -102,16 +102,16 @@ export default function Home() {
           >
             <Link 
               href="/top10"
-              className="group relative block overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 border border-gray-800 hover:border-yellow-500/50 transition-all duration-500"
+              className="group relative block overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-gray-900 to-violet-900/20 border border-gray-800 hover:border-purple-500/50 transition-all duration-500"
             >
-              <div className="absolute inset-0 bg-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative p-6 flex justify-between items-center">
                 <div>
-                  <h3 className="text-yellow-500 text-xs font-bold uppercase tracking-widest mb-1">Featured Collection</h3>
+                  <h3 className="text-purple-400 text-xs font-bold uppercase tracking-widest mb-1">Featured Collection</h3>
                   <h4 className="text-xl text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Harold's Top 10 Movies 2025</h4>
                   <p className="text-sm text-gray-400">Curated highlights & personal reviews.</p>
                 </div>
-                <div className="h-10 w-10 rounded-full bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-black transition-all duration-300">
+                <div className="h-10 w-10 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500 group-hover:text-white transition-all duration-300">
                   <Trophy className="w-5 h-5" />
                 </div>
               </div>
@@ -126,9 +126,9 @@ export default function Home() {
             className="space-y-4 sticky top-4 z-50"
           >
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg opacity-0 group-hover:opacity-20 blur transition-opacity duration-500" />
-              <div className="relative bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-lg shadow-xl">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-lg opacity-0 group-hover:opacity-30 blur transition-opacity duration-500" />
+              <div className="relative bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-lg shadow-xl group-focus-within:border-purple-500/50 transition-colors">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 group-focus-within:text-purple-400 transition-colors" />
                 <input
                   type="text"
                   placeholder="Search movies..."
@@ -148,7 +148,7 @@ export default function Home() {
                     <span className="text-sm font-medium text-gray-200">{stats.count} <span className="text-gray-500 font-normal">Watched</span></span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <TrendingUp className="w-4 h-4 text-green-400" />
+                    <TrendingUp className="w-4 h-4 text-fuchsia-400" />
                     <span className="text-sm font-medium text-gray-200">{stats.averageRating} <span className="text-gray-500 font-normal">Avg Rating</span></span>
                   </div>
                 </div>
@@ -169,7 +169,7 @@ export default function Home() {
                         className={cn(
                           "px-3 py-1 text-xs rounded-full transition-all duration-300",
                           selectedYear === year 
-                            ? "bg-white text-black font-medium shadow-[0_0_10px_rgba(255,255,255,0.3)]" 
+                            ? "bg-violet-600 text-white font-medium shadow-[0_0_15px_rgba(124,58,237,0.4)]" 
                             : "text-gray-400 hover:text-white hover:bg-gray-800"
                         )}
                       >
@@ -196,7 +196,7 @@ export default function Home() {
                             className={cn(
                               "px-3 py-1 text-xs rounded-full transition-all duration-300 whitespace-nowrap",
                               selectedMonth === month
-                                ? "bg-gray-800 text-white font-medium border border-gray-600" 
+                                ? "bg-fuchsia-900/50 text-fuchsia-100 font-medium border border-fuchsia-500/30" 
                                 : "text-gray-400 hover:text-white hover:bg-gray-800/50"
                             )}
                           >
@@ -225,11 +225,11 @@ export default function Home() {
                   className="relative pl-8 group"
                 >
                   {/* Timeline Dot */}
-                  <div className="absolute left-[-4px] top-2 w-[9px] h-[9px] rounded-full bg-black border-2 border-gray-700 group-hover:border-white group-hover:scale-125 transition-all duration-300 z-10 shadow-[0_0_0_4px_rgba(0,0,0,1)]" />
+                  <div className="absolute left-[-4px] top-2 w-[9px] h-[9px] rounded-full bg-black border-2 border-gray-700 group-hover:border-purple-400 group-hover:scale-125 transition-all duration-300 z-10 shadow-[0_0_0_4px_rgba(0,0,0,1)]" />
                   
                   <div className="p-5 rounded-2xl bg-gray-900/20 border border-transparent hover:border-gray-800 hover:bg-gray-900/40 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-black/50">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 mb-3">
-                      <h2 className="text-lg font-medium text-white group-hover:text-yellow-500 transition-colors">
+                      <h2 className="text-lg font-medium text-white group-hover:text-purple-300 transition-colors">
                         {movie.title}
                       </h2>
                       <div className="flex flex-col items-start sm:items-end shrink-0">
