@@ -16,19 +16,19 @@ export default function Top10() {
           Back to Log
         </Link>
         
-        <div className="flex items-center space-x-3 mb-2">
+        <div className="flex items-center space-x-3 mb-8">
           <Trophy className="w-8 h-8 text-yellow-500" />
           <h1 className="text-3xl font-bold text-foreground">Top 10 movies in theater for Harold</h1>
         </div>
-        <div className="text-gray-600 dark:text-gray-400 space-y-4 max-w-2xl">
+        <div className="text-gray-600 dark:text-gray-400 space-y-6 max-w-2xl text-lg leading-relaxed">
           <p>
-            I watch a lot of movies. In theaters. I love movies, but I make money with quant. The only way I can show my love is going to the theater and watching movies. And I always do.
+            I watched a lot of movies this year. In theaters. I love movies, and I make money with quant. The only way I can show my love is going to the theater and watching movies, or maybe making some movies when I have time.
           </p>
           <p>
-            This year my 90% confidence interval of the number of movies that I watched would be bid 99 ask 110 in theaters from Jan. 16th to Dec 20th. I watched them in Dolby, IMAX, IMAX 3D, IMAX 70mm, and normal formats.
+            This year my 90% confidence interval of the number of movies that I watched in theaters would be bid 99 ask 120 from Jan. 16th to Dec 20th (as of today). I watched them in Dolby, IMAX, IMAX 3D, IMAX 70mm, and other formats.
           </p>
-          <p>
-            Here are my top 10 movies in theater list for 2025:
+          <p className="font-medium text-foreground">
+            Here are my top 10 movies IN THEATER for 2025:
           </p>
         </div>
       </header>
