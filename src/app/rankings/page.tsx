@@ -37,11 +37,15 @@ export default function RankingsPage() {
 
   // Load ratings from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('midb_ratings');
-    if (saved) {
-      setRatings(JSON.parse(saved));
-    } else {
-      // Initialize all movies with default 1200
+    try {
+      const saved = localStorage.getItem('midb_ratings');
+      if (saved) {
+        setRatings(JSON.parse(saved));
+      } else {
+        throw new Error('No saved ratings');
+      }
+    } catch (e) {
+      // Initialize all movies with default 1200 if load fails
       const initial: Record<string, RankedItem> = {};
       movies.forEach(m => {
         initial[m.id] = initializeRating(m.id);
