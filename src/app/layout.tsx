@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Micro-Movie Log",
-  description: "A minimalist log of movies watched in theater",
+  title: "Moving Image Data Base",
+  description: "A minimalist log of movies and moving images",
 };
 
 export default function RootLayout({

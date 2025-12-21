@@ -79,15 +79,12 @@ export default function Home() {
         <motion.header 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-12 text-center"
         >
-          <div className="flex justify-between items-start mb-6">
-            <div>
-              <h1 className="text-4xl font-bold mb-2 tracking-tight text-white">
-                Harold's Cinema Log
-              </h1>
-              <p className="text-neutral-500">2025</p>
-            </div>
+          <div className="mb-8">
+            <h1 className="text-5xl font-bold mb-2 tracking-tight text-white">
+              Moving Image Data Base
+            </h1>
           </div>
           
           {/* Lists / Collections Card */}
@@ -95,7 +92,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className="mb-8"
+            className="mb-8 max-w-xl mx-auto text-left"
           >
             <Link 
               href="/top10"
@@ -103,7 +100,7 @@ export default function Home() {
             >
               <div className="relative p-6 flex justify-between items-center">
                 <div>
-                  <h4 className="text-xl text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Harold's Top 10 Movies 2025</h4>
+                  <h4 className="text-xl text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Top 10 Movies 2025</h4>
                 </div>
               </div>
             </Link>
