@@ -23,9 +23,6 @@ export default function Top10() {
           </Link>
           
           <div className="flex items-center space-x-4 mb-6">
-            <div className="p-3 bg-black rounded-full border border-neutral-800">
-              <Trophy className="w-8 h-8 text-white" />
-            </div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">Top 10 movies in theater 2025</h1>
           </div>
           

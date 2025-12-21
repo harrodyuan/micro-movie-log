@@ -107,9 +107,6 @@ export default function Home() {
                   <h4 className="text-xl text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Harold's Top 10 Movies 2025</h4>
                   <p className="text-sm text-neutral-400">Curated highlights & personal reviews.</p>
                 </div>
-                <div className="h-10 w-10 rounded-full bg-black border border-neutral-800 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-300">
-                  <Trophy className="w-5 h-5" />
-                </div>
               </div>
             </Link>
           </motion.div>
@@ -139,7 +136,6 @@ export default function Home() {
               <div className="flex items-center justify-between pb-4 border-b border-neutral-900">
                 <div className="flex items-center space-x-6">
                   <div className="flex items-center space-x-2">
-                    <BarChart3 className="w-4 h-4 text-white" />
                     <span className="text-sm font-medium text-neutral-400">{stats.count} <span className="text-neutral-600 font-normal">Watched</span></span>
                   </div>
                 </div>
