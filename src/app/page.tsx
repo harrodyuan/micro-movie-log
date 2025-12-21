@@ -84,9 +84,9 @@ export default function Home() {
           <div className="flex justify-between items-start mb-6">
             <div>
               <h1 className="text-4xl font-bold mb-2 tracking-tight text-white">
-                Micro-Movie Log
+                Harold's Cinema Log
               </h1>
-              <p className="text-neutral-500">A minimalist log of films watched</p>
+              <p className="text-neutral-500">2025</p>
             </div>
           </div>
           
@@ -103,9 +103,7 @@ export default function Home() {
             >
               <div className="relative p-6 flex justify-between items-center">
                 <div>
-                  <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-widest mb-1">Featured Collection</h3>
                   <h4 className="text-xl text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Harold's Top 10 Movies 2025</h4>
-                  <p className="text-sm text-neutral-400">Curated highlights & personal reviews.</p>
                 </div>
               </div>
             </Link>
