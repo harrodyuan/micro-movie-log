@@ -8,6 +8,21 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🚀 Starting migration...');
 
+  // Get or create default user
+  let user = await prisma.user.findUnique({
+    where: { username: 'bigdirectorharold' }
+  });
+
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        username: 'bigdirectorharold',
+        bio: 'The creator of this movie log.'
+      }
+    });
+    console.log('Created default user: bigdirectorharold');
+  }
+
   // Read the source file
   const filePath = path.join(__dirname, '../src/data/movies.ts');
   const content = fs.readFileSync(filePath, 'utf8');
@@ -51,7 +66,8 @@ async function main() {
           location: movie.location || null,
           // Default Elo
           elo: 1200,
-          matches: 0
+          matches: 0,
+          userId: user.id
         }
       });
       process.stdout.write('.');
