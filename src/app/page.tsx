@@ -1,28 +1,84 @@
-
+import Link from 'next/link';
+import { ConnectWallet } from '@/components/ConnectWallet';
+import { UserCard } from '@/components/UserCard';
+import { MiniBattleArena } from '@/components/MiniBattleArena';
+import { BattleOfToday } from '@/components/BattleOfToday';
 import { prisma } from '@/lib/db';
-import MovieDashboard from '@/components/MovieDashboard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const movies = await prisma.movie.findMany({
-    orderBy: {
-      date: 'desc'
-    }
+  // Fetch Harold's movies for the preview
+  const user = await prisma.user.findUnique({
+    where: { username: 'bigdirectorharold' }
   });
 
-  // Transform data to plain objects for Client Component and match the Interface
-  const formattedMovies = movies.map(movie => ({
-    id: movie.id,
-    title: movie.title,
-    date: movie.date,
-    rating: movie.rating,
-    review: movie.review,
-    posterUrl: movie.posterUrl,
-    location: movie.location,
-    elo: movie.elo,
-    matches: movie.matches
-  }));
+  let movies: { id: string; title: string; date: string; rating: number; location: string | null }[] = [];
+  
+  if (user) {
+    const dbMovies = await prisma.movie.findMany({
+      where: { userId: user.id },
+      orderBy: { date: 'desc' },
+      select: {
+        id: true,
+        title: true,
+        date: true,
+        rating: true,
+        location: true
+      }
+    });
+    movies = dbMovies;
+  }
 
-  return <MovieDashboard initialMovies={formattedMovies} />;
+  return (
+    <main className="min-h-screen bg-black text-white p-4 md:p-8 font-sans">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <header className="mb-12 text-center">
+          <h1 className="text-5xl font-bold mb-6 tracking-tight text-white">
+            Moving Image Data Base
+          </h1>
+          
+          {/* Connect Wallet Button */}
+          <div className="mb-8">
+            <ConnectWallet />
+          </div>
+        </header>
+
+        {/* Editors' Lists Section */}
+        <section className="mb-12">
+          <h2 className="text-xl font-bold text-white mb-4 text-left">Editors' Lists</h2>
+          <Link href="/top10" className="block">
+            <div className="p-4 border border-neutral-800 rounded-xl hover:border-white transition-colors">
+              <p className="text-white font-medium">Harold's Top 10 Movies in Theater 2025</p>
+            </div>
+          </Link>
+        </section>
+
+        {/* Battle of Today Section */}
+        <section className="mb-12">
+          <h2 className="text-xl font-bold text-white mb-4 text-left">Battle of Today</h2>
+          <BattleOfToday movies={movies} />
+        </section>
+
+        {/* Movie Battle Section */}
+        <section className="mb-12">
+          <h2 className="text-xl font-bold text-white mb-4 text-left">Movie Battle</h2>
+          <div className="p-4 border border-neutral-800 rounded-xl">
+            <MiniBattleArena movies={movies} />
+          </div>
+        </section>
+
+        {/* Users Section */}
+        <section className="mb-12">
+          <h2 className="text-xl font-bold text-white mb-4 text-left">Users</h2>
+          <UserCard 
+            username="bigdirectorharold"
+            displayName="Harold"
+            movies={movies}
+          />
+        </section>
+      </div>
+    </main>
+  );
 }

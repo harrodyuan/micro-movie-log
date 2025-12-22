@@ -1,9 +1,10 @@
-
 'use client';
+
+import { ConnectWallet } from './ConnectWallet';
 
 import Link from 'next/link';
 import { useState, useMemo } from 'react';
-import { Search, Star, MapPin } from 'lucide-react';
+import { Search, Star, MapPin, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -25,7 +26,7 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export default function MovieDashboard({ initialMovies }: { initialMovies: Movie[] }) {
+export default function MovieDashboard({ initialMovies, username }: { initialMovies: Movie[], username: string }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedYear, setSelectedYear] = useState<string>('All');
   const [selectedMonth, setSelectedMonth] = useState<string>('All');
@@ -95,49 +96,33 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
           className="mb-12 text-center"
         >
           <div className="mb-8 relative">
-            <div className="absolute top-0 right-0">
-               <ConnectWallet />
-            </div>
-            <h1 className="text-5xl font-bold mb-2 tracking-tight text-white">
+            <h1 className="text-5xl font-bold tracking-tight text-white mb-6">
               Moving Image Data Base
             </h1>
-            <p className="text-neutral-500 text-sm mb-6">
-              Curated by <span className="text-white font-medium">bigdirectorharold</span>
-            </p>
 
             {/* Main Navigation Tabs */}
             <div className="flex justify-center items-center space-x-1 p-1 bg-neutral-900/50 backdrop-blur-md rounded-full inline-flex border border-neutral-800">
-              <Link href="/" className="px-6 py-2 rounded-full text-sm font-medium bg-white text-black shadow-lg">
+              <Link 
+                href="/" 
+                className="p-2 rounded-full text-sm font-medium text-white hover:bg-neutral-800 transition-colors"
+                title="Back to Home"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Link>
+              <div className="w-px h-4 bg-neutral-800 mx-1" />
+              <Link href={`/${username}/log`} className="px-6 py-2 rounded-full text-sm font-medium bg-white text-black shadow-lg">
                 Log
               </Link>
-              <Link href="/rankings" className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+              <Link href={`/${username}/rankings`} className="px-6 py-2 rounded-full text-sm font-medium text-white hover:text-white transition-colors">
                 Rankings
               </Link>
-              <button className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors cursor-not-allowed opacity-50">
-                Reviews
-              </button>
+              <div className="w-px h-4 bg-neutral-800 mx-2" />
+              <div className="px-2">
+                <ConnectWallet />
+              </div>
             </div>
           </div>
           
-          {/* Lists / Collections Card */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1 }}
-            className="mb-12 max-w-xl mx-auto text-left"
-          >
-            <Link 
-              href="/top10"
-              className="group relative block overflow-hidden rounded-2xl border border-neutral-800 hover:border-white transition-all duration-500 bg-black"
-            >
-              <div className="relative p-6 flex justify-between items-center">
-                <div>
-                  <h4 className="text-xl text-white font-medium mb-1 group-hover:translate-x-1 transition-transform">Top 10 Movies 2025</h4>
-                </div>
-              </div>
-            </Link>
-          </motion.div>
-
           {/* Search and Filters Dashboard */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -164,8 +149,8 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
                 <div className="flex items-center space-x-6">
                   <div className="flex items-center space-x-2">
                     <span className="text-sm font-medium text-white">Chronological Log</span>
-                    <span className="text-sm text-neutral-600">•</span>
-                    <span className="text-sm font-medium text-neutral-400">{stats.count} <span className="text-neutral-600 font-normal">Entries</span></span>
+                    <span className="text-sm text-white">•</span>
+                    <span className="text-sm font-medium text-white">{stats.count} <span className="text-white font-normal">Entries</span></span>
                   </div>
                 </div>
               </div>
@@ -173,7 +158,7 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
               {/* Filters Row */}
               <div className="flex flex-wrap gap-4 items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <span className="text-xs text-neutral-500 uppercase tracking-wider font-semibold">Year</span>
+                  <span className="text-xs text-white uppercase tracking-wider font-semibold">Year</span>
                   <div className="flex space-x-1">
                     {years.map(year => (
                       <button
@@ -186,7 +171,7 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
                           "px-3 py-1 text-xs rounded-full transition-all duration-300 font-medium",
                           selectedYear === year 
                             ? "bg-white text-black" 
-                            : "text-neutral-500 hover:text-white"
+                            : "text-white hover:text-white"
                         )}
                       >
                         {year}
@@ -203,7 +188,7 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
                       exit={{ opacity: 0, x: -10 }}
                       className="flex items-center space-x-3 overflow-x-auto pb-1 max-w-full no-scrollbar"
                     >
-                      <span className="text-xs text-neutral-500 uppercase tracking-wider font-semibold shrink-0">Month</span>
+                      <span className="text-xs text-white uppercase tracking-wider font-semibold shrink-0">Month</span>
                       <div className="flex space-x-1">
                         {months.map(month => (
                           <button
@@ -213,7 +198,7 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
                               "px-3 py-1 text-xs rounded-full transition-all duration-300 whitespace-nowrap font-medium",
                               selectedMonth === month
                                 ? "bg-white text-black" 
-                                : "text-neutral-500 hover:text-white"
+                                : "text-white hover:text-white"
                             )}
                           >
                             {month}
@@ -249,7 +234,7 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
                         {movie.title}
                       </h2>
                       <div className="flex flex-col items-start sm:items-end shrink-0">
-                        <span className="text-xs text-neutral-500 bg-black px-2 py-1 rounded border border-neutral-900 group-hover:border-white group-hover:text-white transition-colors duration-300">
+                        <span className="text-xs text-white bg-black px-2 py-1 rounded border border-neutral-900 group-hover:border-white group-hover:text-white transition-colors duration-300">
                           {formatDate(movie.date)}
                         </span>
                       </div>
@@ -260,7 +245,7 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
                         {renderStars(movie.rating)}
                       </div>
                       {movie.location && (
-                        <span className="text-xs text-neutral-600 flex items-center">
+                        <span className="text-xs text-white flex items-center">
                           <MapPin className="w-3 h-3 mr-1.5" />
                           {movie.location}
                         </span>
@@ -268,7 +253,7 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
                     </div>
                     
                     {movie.review && (
-                      <p className="text-sm text-neutral-400 leading-relaxed max-w-2xl font-light">
+                      <p className="text-sm text-white leading-relaxed max-w-2xl font-light">
                         {movie.review}
                       </p>
                     )}
@@ -281,13 +266,13 @@ export default function MovieDashboard({ initialMovies }: { initialMovies: Movie
                 animate={{ opacity: 1 }}
                 className="text-center py-20 pl-4"
               >
-                <p className="text-neutral-600">No movies found.</p>
+                <p className="text-white">No movies found.</p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        <footer className="mt-24 text-center text-xs text-neutral-800 pb-8">
+        <footer className="mt-24 text-center text-xs text-white pb-8">
           <p>Micro-Movie Log — {new Date().getFullYear()}</p>
         </footer>
       </div>

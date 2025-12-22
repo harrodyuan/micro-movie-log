@@ -2,12 +2,14 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Swords, ArrowLeft, RefreshCw } from 'lucide-react';
+import { Trophy, Swords, RefreshCw, ArrowLeft } from 'lucide-react';
 import { movies, Movie } from '@/data/movies';
 import { RankedItem, calculateNewRatings, initializeRating } from '@/lib/ranking';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { ConnectWallet } from '@/components/ConnectWallet';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -17,8 +19,6 @@ function cn(...inputs: ClassValue[]) {
 function getRandomPair(allMovies: Movie[]): [Movie, Movie] {
   if (allMovies.length < 2) return [allMovies[0], allMovies[0]];
   
-  // Simple random selection for now. 
-  // In the future, we can optimize this to pick items with similar Elo scores for better data quality.
   const idx1 = Math.floor(Math.random() * allMovies.length);
   let idx2 = Math.floor(Math.random() * allMovies.length);
   
@@ -30,6 +30,9 @@ function getRandomPair(allMovies: Movie[]): [Movie, Movie] {
 }
 
 export default function RankingsPage() {
+  const params = useParams();
+  const username = params.username as string;
+  
   const [activeTab, setActiveTab] = useState<'vote' | 'leaderboard'>('vote');
   const [ratings, setRatings] = useState<Record<string, RankedItem>>({});
   const [currentPair, setCurrentPair] = useState<[Movie, Movie] | null>(null);
@@ -107,21 +110,30 @@ export default function RankingsPage() {
         {/* Header */}
         <header className="mb-12 text-center">
           <div className="mb-8">
-            <h1 className="text-5xl font-bold mb-6 tracking-tight text-white">
+            <h1 className="text-5xl font-bold tracking-tight text-white mb-6">
               Moving Image Data Base
             </h1>
 
             {/* Navigation Tabs */}
             <div className="flex justify-center items-center space-x-1 p-1 bg-neutral-900/50 backdrop-blur-md rounded-full inline-flex border border-neutral-800">
-              <Link href="/" className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+              <Link 
+                href="/" 
+                className="p-2 rounded-full text-sm font-medium text-white hover:bg-neutral-800 transition-colors"
+                title="Back to Home"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Link>
+              <div className="w-px h-4 bg-neutral-800 mx-1" />
+              <Link href={`/${username}/log`} className="px-6 py-2 rounded-full text-sm font-medium text-white hover:text-white transition-colors">
                 Log
               </Link>
-              <Link href="/rankings" className="px-6 py-2 rounded-full text-sm font-medium bg-white text-black shadow-lg">
+              <Link href={`/${username}/rankings`} className="px-6 py-2 rounded-full text-sm font-medium bg-white text-black shadow-lg">
                 Rankings
               </Link>
-              <button className="px-6 py-2 rounded-full text-sm font-medium text-neutral-400 hover:text-white transition-colors cursor-not-allowed opacity-50">
-                Reviews
-              </button>
+              <div className="w-px h-4 bg-neutral-800 mx-2" />
+              <div className="px-2">
+                <ConnectWallet />
+              </div>
             </div>
           </div>
 
@@ -133,7 +145,7 @@ export default function RankingsPage() {
                 "flex items-center gap-2 px-4 py-2 rounded-lg transition-colors border",
                 activeTab === 'vote' 
                   ? "bg-neutral-800 border-neutral-700 text-white" 
-                  : "border-transparent text-neutral-500 hover:text-white"
+                  : "border-transparent text-white hover:text-white"
               )}
             >
               <Swords className="w-4 h-4" />
@@ -145,7 +157,7 @@ export default function RankingsPage() {
                 "flex items-center gap-2 px-4 py-2 rounded-lg transition-colors border",
                 activeTab === 'leaderboard' 
                   ? "bg-neutral-800 border-neutral-700 text-white" 
-                  : "border-transparent text-neutral-500 hover:text-white"
+                  : "border-transparent text-white hover:text-white"
               )}
             >
               <Trophy className="w-4 h-4" />
@@ -170,17 +182,17 @@ export default function RankingsPage() {
                 className="group relative h-[400px] w-full rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-white transition-all duration-300 overflow-hidden text-left flex flex-col"
               >
                 <div className="flex-1 p-8 flex flex-col justify-center items-center text-center z-10">
-                  <span className="text-neutral-500 text-sm font-mono mb-4 uppercase tracking-widest">Option A</span>
+                  <span className="text-white text-sm font-mono mb-4 uppercase tracking-widest">Option A</span>
                   <h2 className="text-3xl md:text-4xl font-bold text-white group-hover:scale-105 transition-transform duration-300">
                     {currentPair[0].title}
                   </h2>
-                  <p className="mt-4 text-neutral-400">{currentPair[0].date.split('-')[0]}</p>
+                  <p className="mt-4 text-white">{currentPair[0].date.split('-')[0]}</p>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-50" />
               </button>
 
               {/* VS Badge */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center w-16 h-16 rounded-full bg-black border border-neutral-800 text-neutral-500 font-bold shadow-2xl">
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center w-16 h-16 rounded-full bg-black border border-neutral-800 text-white font-bold shadow-2xl">
                 VS
               </div>
 
@@ -190,11 +202,11 @@ export default function RankingsPage() {
                 className="group relative h-[400px] w-full rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-white transition-all duration-300 overflow-hidden text-left flex flex-col"
               >
                 <div className="flex-1 p-8 flex flex-col justify-center items-center text-center z-10">
-                  <span className="text-neutral-500 text-sm font-mono mb-4 uppercase tracking-widest">Option B</span>
+                  <span className="text-white text-sm font-mono mb-4 uppercase tracking-widest">Option B</span>
                   <h2 className="text-3xl md:text-4xl font-bold text-white group-hover:scale-105 transition-transform duration-300">
                     {currentPair[1].title}
                   </h2>
-                   <p className="mt-4 text-neutral-400">{currentPair[1].date.split('-')[0]}</p>
+                   <p className="mt-4 text-white">{currentPair[1].date.split('-')[0]}</p>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-50" />
               </button>
@@ -202,7 +214,7 @@ export default function RankingsPage() {
               <div className="col-span-1 md:col-span-2 text-center mt-8">
                 <button 
                   onClick={() => setCurrentPair(getRandomPair(movies))}
-                  className="text-neutral-500 hover:text-white text-sm flex items-center justify-center gap-2 mx-auto transition-colors"
+                  className="text-white hover:text-white text-sm flex items-center justify-center gap-2 mx-auto transition-colors"
                 >
                   <RefreshCw className="w-4 h-4" />
                   Skip Pair
@@ -225,9 +237,9 @@ export default function RankingsPage() {
                   <span className={cn(
                     "font-mono text-lg w-8 text-center",
                     index === 0 ? "text-yellow-500 font-bold" :
-                    index === 1 ? "text-neutral-300 font-bold" :
+                    index === 1 ? "text-white font-bold" :
                     index === 2 ? "text-amber-700 font-bold" :
-                    "text-neutral-600"
+                    "text-white"
                   )}>
                     {item.rank}
                   </span>
@@ -241,20 +253,20 @@ export default function RankingsPage() {
                           style={{ width: `${Math.min(100, (item.elo / 2000) * 100)}%` }} 
                         />
                       </div>
-                      <span className="text-xs text-neutral-500 font-mono">
+                      <span className="text-xs text-white font-mono">
                         {item.elo} pts
                       </span>
                     </div>
                   </div>
 
-                  <div className="text-xs text-neutral-600 font-mono">
+                  <div className="text-xs text-white font-mono">
                     {item.matches} matches
                   </div>
                 </div>
               ))}
               
               {Object.keys(ratings).length === 0 && (
-                <div className="text-center py-20 text-neutral-500">
+                <div className="text-center py-20 text-white">
                   Start battling to see rankings!
                 </div>
               )}

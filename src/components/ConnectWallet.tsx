@@ -9,7 +9,7 @@ interface User {
   walletAddress: string;
 }
 
-export default function ConnectWallet() {
+export function ConnectWallet() {
   const [user, setUser] = useState<User | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -68,12 +68,12 @@ export default function ConnectWallet() {
   if (user) {
     return (
       <div className="flex items-center space-x-2">
-        <span className="text-xs text-neutral-400">
+        <span className="text-xs text-white">
           Connected as <span className="text-white font-medium">{user.username}</span>
         </span>
         <button 
           onClick={disconnect}
-          className="px-3 py-1 rounded-full text-xs font-medium bg-neutral-900 text-neutral-500 border border-neutral-800 hover:border-red-900 hover:text-red-400 transition-all"
+          className="px-3 py-1 rounded-full text-xs font-medium bg-neutral-900 text-white border border-neutral-800 hover:border-red-900 hover:text-red-400 transition-all"
         >
           Disconnect
         </button>
@@ -85,7 +85,7 @@ export default function ConnectWallet() {
     <button 
       onClick={connect}
       disabled={isConnecting}
-      className="px-4 py-1.5 rounded-full text-xs font-medium bg-neutral-900 text-neutral-400 border border-neutral-800 hover:border-white hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      className="px-4 py-1.5 rounded-full text-xs font-medium bg-neutral-900 text-white border border-neutral-800 hover:border-white hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {isConnecting ? 'Connecting...' : 'Connect Wallet'}
     </button>
