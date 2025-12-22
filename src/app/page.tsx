@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import { ConnectWallet } from '@/components/ConnectWallet';
-import { UserCard } from '@/components/UserCard';
 import { MiniBattleArena } from '@/components/MiniBattleArena';
 import { BattleOfToday } from '@/components/BattleOfToday';
 import { prisma } from '@/lib/db';
@@ -34,15 +32,10 @@ export default async function Home() {
     <main className="min-h-screen bg-black text-white p-4 md:p-8 font-sans">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <header className="mb-12 text-center">
-          <h1 className="text-5xl font-bold mb-6 tracking-tight text-white">
+        <header className="mb-8 text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-white">
             Moving Image Data Base
           </h1>
-          
-          {/* Connect Wallet Button */}
-          <div className="mb-8">
-            <ConnectWallet />
-          </div>
         </header>
 
         {/* Editors' Lists Section */}
@@ -67,16 +60,6 @@ export default async function Home() {
           <div className="p-4 border border-neutral-800 rounded-xl">
             <MiniBattleArena movies={movies} />
           </div>
-        </section>
-
-        {/* Users Section */}
-        <section className="mb-12">
-          <h2 className="text-xl font-bold text-white mb-4 text-left">Users</h2>
-          <UserCard 
-            username="bigdirectorharold"
-            displayName="Harold"
-            movies={movies}
-          />
         </section>
       </div>
     </main>

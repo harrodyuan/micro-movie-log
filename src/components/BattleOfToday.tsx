@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Swords } from 'lucide-react';
+import { Swords, Wallet } from 'lucide-react';
+import { ethers } from 'ethers';
 
 interface Movie {
   id: string;
@@ -35,22 +36,99 @@ function getTodaysPair(allMovies: Movie[]): [Movie, Movie] | null {
 export function BattleOfToday({ movies }: BattleOfTodayProps) {
   const [pair, setPair] = useState<[Movie, Movie] | null>(null);
   const [voted, setVoted] = useState<string | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const [showConnectPrompt, setShowConnectPrompt] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
 
   useEffect(() => {
     setPair(getTodaysPair(movies));
-    // Check if user already voted today
-    const savedVote = localStorage.getItem('battle_of_today_vote');
-    const savedDate = localStorage.getItem('battle_of_today_date');
-    const today = new Date().toDateString();
-    if (savedDate === today && savedVote) {
-      setVoted(savedVote);
+    
+    // Check if user is connected
+    const storedUser = localStorage.getItem('movie_log_user');
+    if (storedUser) {
+      setIsConnected(true);
+      const user = JSON.parse(storedUser);
+      
+      // Check if user already voted today (from database)
+      fetch(`/api/vote?userId=${user.id}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.vote) {
+            setVoted(data.vote.winnerId);
+          }
+        })
+        .catch(err => console.error('Error checking vote:', err));
     }
   }, [movies]);
 
-  const handleVote = (movieId: string) => {
-    setVoted(movieId);
-    localStorage.setItem('battle_of_today_vote', movieId);
-    localStorage.setItem('battle_of_today_date', new Date().toDateString());
+  const handleConnect = async () => {
+    if (!window.ethereum) {
+      alert('Please install MetaMask to vote!');
+      return;
+    }
+
+    setIsConnecting(true);
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const accounts = await provider.send("eth_requestAccounts", []);
+      
+      if (accounts.length > 0) {
+        const address = accounts[0];
+        const response = await fetch('/api/auth/wallet', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ address })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem('movie_log_user', JSON.stringify(data.user));
+          setIsConnected(true);
+          setShowConnectPrompt(false);
+        }
+      }
+    } catch (error) {
+      console.error('Error connecting wallet:', error);
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+
+  const handleVote = async (movieId: string) => {
+    if (!isConnected || !pair) {
+      setShowConnectPrompt(true);
+      return;
+    }
+    
+    const storedUser = localStorage.getItem('movie_log_user');
+    if (!storedUser) return;
+    
+    const user = JSON.parse(storedUser);
+    
+    try {
+      const response = await fetch('/api/vote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user.id,
+          movieAId: pair[0].id,
+          movieBId: pair[1].id,
+          winnerId: movieId
+        })
+      });
+      
+      if (response.ok) {
+        setVoted(movieId);
+      } else {
+        const data = await response.json();
+        if (data.vote) {
+          // Already voted
+          setVoted(data.vote.winnerId);
+        }
+      }
+    } catch (error) {
+      console.error('Error saving vote:', error);
+    }
   };
 
   if (!pair) return null;
@@ -59,7 +137,39 @@ export function BattleOfToday({ movies }: BattleOfTodayProps) {
   const dateStr = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
   return (
-    <div className="p-6 rounded-2xl border border-neutral-800 bg-gradient-to-b from-neutral-900/50 to-black">
+    <div className="relative p-6 rounded-2xl border border-neutral-800 bg-gradient-to-b from-neutral-900/50 to-black">
+      {/* Connect Wallet Prompt Overlay */}
+      {showConnectPrompt && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="absolute inset-0 z-10 flex items-center justify-center bg-black/80 backdrop-blur-sm rounded-2xl"
+        >
+          <div className="text-center p-8">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
+              <Wallet className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Connect to Vote</h3>
+            <p className="text-sm text-white mb-6">Connect your wallet to vote in today's battle</p>
+            <div className="flex gap-3 justify-center">
+              <button
+                onClick={() => setShowConnectPrompt(false)}
+                className="px-4 py-2 rounded-lg border border-neutral-800 text-white text-sm hover:bg-neutral-900 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConnect}
+                disabled={isConnecting}
+                className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-all disabled:opacity-50"
+              >
+                {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-white/10">

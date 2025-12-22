@@ -14,10 +14,35 @@ model User {
   walletAddress String?  @unique @map("wallet_address")
   bio           String?
   movies        Movie[]
+  votes         Vote[]
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  
+  // The battle date (e.g., "2025-12-21")
+  battleDate String  @map("battle_date")
+  
+  // Movie IDs in the battle
+  movieAId  String   @map("movie_a_id")
+  movieBId  String   @map("movie_b_id")
+  
+  // Winner movie ID
+  winnerId  String   @map("winner_id")
+  
+  // User who voted
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id])
+  
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  // One vote per user per battle date
+  @@unique([userId, battleDate])
+  @@map("votes")
 }
 
 model Movie {

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
+import Link from 'next/link';
 
 interface User {
   id: string;
@@ -67,27 +68,40 @@ export function ConnectWallet() {
 
   if (user) {
     return (
-      <div className="flex items-center space-x-2">
-        <span className="text-xs text-white">
-          Connected as <span className="text-white font-medium">{user.username}</span>
-        </span>
+      <div className="flex items-center gap-2">
+        <Link 
+          href={`/${user.username}/log`}
+          className="px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-neutral-800 transition-all"
+        >
+          {user.username}
+        </Link>
         <button 
           onClick={disconnect}
-          className="px-3 py-1 rounded-full text-xs font-medium bg-neutral-900 text-white border border-neutral-800 hover:border-red-900 hover:text-red-400 transition-all"
+          className="px-3 py-2 rounded-lg text-sm text-neutral-400 hover:text-white transition-all"
+          title="Log out"
         >
-          Disconnect
+          Log out
         </button>
       </div>
     );
   }
 
   return (
-    <button 
-      onClick={connect}
-      disabled={isConnecting}
-      className="px-4 py-1.5 rounded-full text-xs font-medium bg-neutral-900 text-white border border-neutral-800 hover:border-white hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-    >
-      {isConnecting ? 'Connecting...' : 'Connect Wallet'}
-    </button>
+    <div className="flex items-center gap-2">
+      <button 
+        onClick={connect}
+        disabled={isConnecting}
+        className="px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-neutral-800 transition-all disabled:opacity-50"
+      >
+        Log In
+      </button>
+      <button 
+        onClick={connect}
+        disabled={isConnecting}
+        className="px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-all disabled:opacity-50"
+      >
+        {isConnecting ? 'Connecting...' : 'Sign Up'}
+      </button>
+    </div>
   );
 }
