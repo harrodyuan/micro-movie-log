@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { calculateNewRatings } from '@/lib/ranking';
 
 export async function POST(request: Request) {
   try {
@@ -33,16 +34,50 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create the vote
-    const vote = await prisma.vote.create({
-      data: {
-        battleDate,
-        movieAId,
-        movieBId,
-        winnerId,
-        userId
-      }
-    });
+    // Fetch current movie stats to calculate Elo
+    const [winner, loser] = await Promise.all([
+      prisma.movie.findUnique({ where: { id: winnerId } }),
+      prisma.movie.findUnique({ where: { id: winnerId === movieAId ? movieBId : movieAId } }),
+    ]);
+
+    if (!winner || !loser) {
+      return NextResponse.json(
+        { error: 'Movies not found' },
+        { status: 404 }
+      );
+    }
+
+    // Calculate new Elo ratings
+    const winnerRanked = { id: winner.id, elo: winner.elo, matches: winner.matches };
+    const loserRanked = { id: loser.id, elo: loser.elo, matches: loser.matches };
+    const [newWinnerStats, newLoserStats] = calculateNewRatings(winnerRanked, loserRanked);
+
+    // Create the vote AND update Elo in a transaction
+    const [vote] = await prisma.$transaction([
+      prisma.vote.create({
+        data: {
+          battleDate,
+          movieAId,
+          movieBId,
+          winnerId,
+          userId
+        }
+      }),
+      prisma.movie.update({
+        where: { id: winnerId },
+        data: {
+          elo: newWinnerStats.elo,
+          matches: newWinnerStats.matches,
+        },
+      }),
+      prisma.movie.update({
+        where: { id: loser.id },
+        data: {
+          elo: newLoserStats.elo,
+          matches: newLoserStats.matches,
+        },
+      }),
+    ]);
 
     return NextResponse.json({ vote });
   } catch (error) {

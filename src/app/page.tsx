@@ -11,7 +11,7 @@ export default async function Home() {
     where: { username: 'bigdirectorharold' }
   });
 
-  let movies: { id: string; title: string; date: string; rating: number; location: string | null }[] = [];
+  let movies: { id: string; title: string; date: string; rating: number; location: string | null; posterUrl: string | null }[] = [];
   
   if (user) {
     const dbMovies = await prisma.movie.findMany({
@@ -22,7 +22,8 @@ export default async function Home() {
         title: true,
         date: true,
         rating: true,
-        location: true
+        location: true,
+        posterUrl: true
       }
     });
     movies = dbMovies;

@@ -9,6 +9,7 @@ interface Movie {
   id: string;
   title: string;
   date: string;
+  posterUrl: string | null;
 }
 
 interface BattleOfTodayProps {
@@ -201,8 +202,12 @@ export function BattleOfToday({ movies }: BattleOfTodayProps) {
           }`}
         >
           {/* Poster space */}
-          <div className="aspect-[2/3] w-full flex items-center justify-center text-neutral-700 text-xs border border-dashed border-neutral-800 rounded-lg mb-3">
-            [Poster]
+          <div className="aspect-[2/3] w-full flex items-center justify-center text-neutral-700 text-xs border border-dashed border-neutral-800 rounded-lg mb-3 relative overflow-hidden">
+            {pair[0].posterUrl ? (
+              <img src={pair[0].posterUrl} alt={pair[0].title} className="absolute inset-0 w-full h-full object-cover" />
+            ) : (
+              <span>[Poster]</span>
+            )}
           </div>
           {/* Title */}
           <div className="h-16 flex flex-col justify-center">
@@ -231,8 +236,12 @@ export function BattleOfToday({ movies }: BattleOfTodayProps) {
           }`}
         >
           {/* Poster space */}
-          <div className="aspect-[2/3] w-full flex items-center justify-center text-neutral-700 text-xs border border-dashed border-neutral-800 rounded-lg mb-3">
-            [Poster]
+          <div className="aspect-[2/3] w-full flex items-center justify-center text-neutral-700 text-xs border border-dashed border-neutral-800 rounded-lg mb-3 relative overflow-hidden">
+            {pair[1].posterUrl ? (
+              <img src={pair[1].posterUrl} alt={pair[1].title} className="absolute inset-0 w-full h-full object-cover" />
+            ) : (
+              <span>[Poster]</span>
+            )}
           </div>
           {/* Title */}
           <div className="h-16 flex flex-col justify-center">

@@ -1,9 +1,21 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const { PrismaClient } = require('@prisma/client');
 const fs = require('fs');
-const path = require('path');
 
-const prisma = new PrismaClient();
+console.log('Environment loaded from:', path.join(__dirname, '../.env'));
+if (!process.env.DATABASE_URL) {
+  console.error('❌ DATABASE_URL is not defined in environment variables');
+  process.exit(1);
+}
+
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL,
+    },
+  },
+});
 
 async function main() {
   console.log('🚀 Starting migration...');

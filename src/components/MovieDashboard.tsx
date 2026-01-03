@@ -229,34 +229,49 @@ export default function MovieDashboard({ initialMovies, username }: { initialMov
                   <div className="absolute left-[-4px] top-2 w-[9px] h-[9px] rounded-full bg-black border-2 border-neutral-800 group-hover:border-white group-hover:scale-125 transition-all duration-300 z-10" />
                   
                   <div className="p-5 rounded-2xl bg-black border border-neutral-900 hover:border-white transition-all duration-300">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 mb-3">
-                      <h2 className="text-lg font-medium text-white group-hover:text-white transition-colors">
-                        {movie.title}
-                      </h2>
-                      <div className="flex flex-col items-start sm:items-end shrink-0">
-                        <span className="text-xs text-white bg-black px-2 py-1 rounded border border-neutral-900 group-hover:border-white group-hover:text-white transition-colors duration-300">
-                          {formatDate(movie.date)}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center mb-4 space-x-4">
-                      <div className="flex space-x-0.5">
-                        {renderStars(movie.rating)}
-                      </div>
-                      {movie.location && (
-                        <span className="text-xs text-white flex items-center">
-                          <MapPin className="w-3 h-3 mr-1.5" />
-                          {movie.location}
-                        </span>
+                    <div className="flex gap-6">
+                      {/* Poster */}
+                      {movie.posterUrl && (
+                        <div className="shrink-0 w-20 md:w-28 aspect-[2/3] rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
+                          <img 
+                            src={movie.posterUrl} 
+                            alt={movie.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
                       )}
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 mb-3">
+                          <h2 className="text-lg font-medium text-white group-hover:text-white transition-colors">
+                            {movie.title}
+                          </h2>
+                          <div className="flex flex-col items-start sm:items-end shrink-0">
+                            <span className="text-xs text-white bg-black px-2 py-1 rounded border border-neutral-900 group-hover:border-white group-hover:text-white transition-colors duration-300">
+                              {formatDate(movie.date)}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center mb-4 space-x-4">
+                          <div className="flex space-x-0.5">
+                            {renderStars(movie.rating)}
+                          </div>
+                          {movie.location && (
+                            <span className="text-xs text-white flex items-center">
+                              <MapPin className="w-3 h-3 mr-1.5" />
+                              {movie.location}
+                            </span>
+                          )}
+                        </div>
+                        
+                        {movie.review && (
+                          <p className="text-sm text-white leading-relaxed max-w-2xl font-light">
+                            {movie.review}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                    
-                    {movie.review && (
-                      <p className="text-sm text-white leading-relaxed max-w-2xl font-light">
-                        {movie.review}
-                      </p>
-                    )}
                   </div>
                 </motion.article>
               ))
