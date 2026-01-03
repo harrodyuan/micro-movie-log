@@ -6,27 +6,33 @@ import { prisma } from '@/lib/db';
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  // Fetch Harold's movies for the preview
-  const user = await prisma.user.findUnique({
-    where: { username: 'bigdirectorharold' }
-  });
-
   let movies: { id: string; title: string; date: string; rating: number; location: string | null; posterUrl: string | null }[] = [];
+  let dbError: string | null = null;
   
-  if (user) {
-    const dbMovies = await prisma.movie.findMany({
-      where: { userId: user.id },
-      orderBy: { date: 'desc' },
-      select: {
-        id: true,
-        title: true,
-        date: true,
-        rating: true,
-        location: true,
-        posterUrl: true
-      }
+  try {
+    // Fetch Harold's movies for the preview
+    const user = await prisma.user.findUnique({
+      where: { username: 'bigdirectorharold' }
     });
-    movies = dbMovies;
+
+    if (user) {
+      const dbMovies = await prisma.movie.findMany({
+        where: { userId: user.id },
+        orderBy: { date: 'desc' },
+        select: {
+          id: true,
+          title: true,
+          date: true,
+          rating: true,
+          location: true,
+          posterUrl: true
+        }
+      });
+      movies = dbMovies;
+    }
+  } catch (e) {
+    console.error('Database Error:', e);
+    dbError = "Could not connect to database. Please check Vercel environment variables.";
   }
 
   return (
@@ -37,6 +43,12 @@ export default async function Home() {
           <h1 className="text-4xl font-bold tracking-tight text-white">
             Moving Image Data Base
           </h1>
+          {dbError && (
+            <div className="mt-4 p-4 bg-red-900/50 border border-red-500 rounded-lg text-red-200">
+              <p className="font-bold">System Error</p>
+              <p>{dbError}</p>
+            </div>
+          )}
         </header>
 
         {/* Editors' Lists Section */}
