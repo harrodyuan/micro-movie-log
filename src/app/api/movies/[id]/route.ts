@@ -5,8 +5,9 @@ import { prisma } from '@/lib/db';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
@@ -16,7 +17,7 @@ export async function DELETE(
   try {
     // Verify the movie belongs to the user
     const movie = await prisma.movie.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!movie) {
@@ -28,7 +29,7 @@ export async function DELETE(
     }
 
     await prisma.movie.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });
