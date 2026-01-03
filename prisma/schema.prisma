@@ -4,14 +4,18 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model User {
   id            String   @id @default(uuid())
   username      String   @unique
+  email         String?  @unique
+  password      String?
   walletAddress String?  @unique @map("wallet_address")
+  googleId      String?  @unique @map("google_id")
+  image         String?
   bio           String?
   movies        Movie[]
   votes         Vote[]
@@ -63,4 +67,31 @@ model Movie {
   updatedAt DateTime @updatedAt @map("updated_at")
   
   @@map("movies")
+}
+
+model Video {
+  id           String   @id @default(uuid())
+  youtubeId    String   @unique @map("youtube_id")
+  title        String
+  channelTitle String   @map("channel_title")
+  thumbnailUrl String   @map("thumbnail_url")
+  duration     String?
+  elo          Int      @default(1200)
+  matches      Int      @default(0)
+  
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  
+  @@map("videos")
+}
+
+model VideoVote {
+  id        String   @id @default(uuid())
+  visitorId String   @map("visitor_id")
+  videoAId  String   @map("video_a_id")
+  videoBId  String   @map("video_b_id")
+  winnerId  String   @map("winner_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  @@map("video_votes")
 }

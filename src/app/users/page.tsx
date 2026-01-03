@@ -37,7 +37,7 @@ export default async function UsersPage() {
           {users.map(user => (
             <Link 
               key={user.id}
-              href={`/${user.username}/log`}
+              href={`/users/${user.username}`}
               className="block p-4 border border-neutral-800 rounded-xl hover:border-white transition-colors"
             >
               <div className="flex items-center justify-between">

@@ -129,16 +129,15 @@ export default function RankingsPage() {
                 <ArrowLeft className="w-4 h-4" />
               </Link>
               <div className="w-px h-4 bg-neutral-800 mx-1" />
-              <Link href={`/${username}/log`} className="px-6 py-2 rounded-full text-sm font-medium text-white hover:text-white transition-colors">
+              <Link href={`/users/${username}`} className="px-6 py-2 rounded-full text-sm font-medium text-white hover:text-white transition-colors">
                 Log
               </Link>
               <Link href={`/${username}/rankings`} className="px-6 py-2 rounded-full text-sm font-medium bg-white text-black shadow-lg">
                 Rankings
               </Link>
-              <div className="w-px h-4 bg-neutral-800 mx-2" />
-              <div className="px-2">
-                <ConnectWallet />
-              </div>
+              <Link href={`/users`} className="px-6 py-2 rounded-full text-sm font-medium text-white hover:text-white transition-colors">
+                Reviews
+              </Link>
             </div>
           </div>
 
