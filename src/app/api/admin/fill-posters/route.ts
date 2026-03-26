@@ -57,6 +57,8 @@ export async function GET() {
       fixed++;
       results.push({ title: movie.title, status: '✓ fixed' });
     } else {
+      // Mark with empty string so it exits the processing queue
+      await prisma.movie.update({ where: { id: movie.id }, data: { posterUrl: '' } });
       results.push({ title: movie.title, status: '✗ no poster found' });
     }
 
