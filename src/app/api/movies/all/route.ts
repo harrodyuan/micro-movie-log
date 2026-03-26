@@ -4,7 +4,6 @@ import { prisma } from '@/lib/db';
 export async function GET() {
   try {
     const movies = await prisma.movie.findMany({
-      where: { posterUrl: { not: null } },
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
