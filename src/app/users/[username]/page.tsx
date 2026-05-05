@@ -2,6 +2,7 @@ import { prisma } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import { Film } from 'lucide-react';
 import { ShareCardButton } from '@/components/ShareCardButton';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -57,6 +58,14 @@ export default async function UserProfilePage({ params }: PageProps) {
             <div><span className="text-white font-bold">{battled.toLocaleString()}</span><span className="text-zinc-500 ml-1">ranked</span></div>
             <div><span className="text-white font-bold">{user.movies.reduce((s, m) => s + m.matches, 0).toLocaleString()}</span><span className="text-zinc-500 ml-1">battles</span></div>
             {top10.length >= 3 && <ShareCardButton username={user.username} />}
+            <Link href={`/compare/${user.username}`}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg text-xs font-semibold text-white transition-all">
+              Compare
+            </Link>
+            <Link href={`/invite/${user.username}`}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg text-xs font-semibold text-zinc-400 transition-all">
+              Invite Link
+            </Link>
           </div>
         </header>
 
