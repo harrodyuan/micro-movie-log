@@ -4,8 +4,17 @@ import { Navbar } from "@/components/Navbar";
 import { AuthProvider } from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
-  title: "Moving Image Data Base",
-  description: "A minimalist log of movies and moving images",
+  title: "MIDB – Movie Rankings",
+  description: "Battle movies to build your personal top 10 ranking",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "MIDB",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export default function RootLayout({
