@@ -1,5 +1,6 @@
 import { AnonymousBattle } from '@/components/AnonymousBattle';
 import { BattleOfToday } from '@/components/BattleOfToday';
+import { NowInTheaters } from '@/components/NowInTheaters';
 import { prisma } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
@@ -10,12 +11,7 @@ export default async function Home() {
   try {
     const dbMovies = await prisma.movie.findMany({
       orderBy: { date: 'desc' },
-      select: {
-        id: true,
-        title: true,
-        date: true,
-        posterUrl: true
-      }
+      select: { id: true, title: true, date: true, posterUrl: true }
     });
     movies = dbMovies;
   } catch (e) {
@@ -30,12 +26,13 @@ export default async function Home() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">
             Movie Battle
           </h1>
-          <p className="text-zinc-400">
-            Which movie wins? You decide.
-          </p>
+          <p className="text-zinc-400">Which movie wins? You decide.</p>
         </header>
 
-        {/* Main Battle Section */}
+        {/* Now in Theaters strip */}
+        <NowInTheaters />
+
+        {/* Main Battle */}
         <section className="mb-8">
           <AnonymousBattle movies={movies} />
         </section>
