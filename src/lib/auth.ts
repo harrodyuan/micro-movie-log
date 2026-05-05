@@ -1,15 +1,10 @@
 import { NextAuthOptions } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from './db';
 import bcrypt from 'bcryptjs';
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-    }),
     CredentialsProvider({
       name: 'credentials',
       credentials: {
@@ -45,38 +40,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account }) {
-      if (account?.provider === 'google') {
-        const existingUser = await prisma.user.findUnique({
-          where: { googleId: user.id },
-        });
-
-        if (!existingUser) {
-          // Check if email already exists
-          const emailUser = await prisma.user.findUnique({
-            where: { email: user.email || undefined },
-          });
-
-          if (emailUser) {
-            // Link Google account to existing user
-            await prisma.user.update({
-              where: { id: emailUser.id },
-              data: { googleId: user.id, image: user.image },
-            });
-          } else {
-            // Create new user
-            const username = user.email?.split('@')[0] || `user_${Date.now()}`;
-            await prisma.user.create({
-              data: {
-                username,
-                email: user.email,
-                googleId: user.id,
-                image: user.image,
-              },
-            });
-          }
-        }
-      }
+    async signIn() {
       return true;
     },
     async session({ session, token }) {
