@@ -76,6 +76,9 @@ model Video {
   channelTitle String   @map("channel_title")
   thumbnailUrl String   @map("thumbnail_url")
   duration     String?
+  platform     String   @default("youtube")
+  sourceUrl    String?  @map("source_url")
+  submittedBy  String?  @map("submitted_by")
   elo          Int      @default(1200)
   matches      Int      @default(0)
   

@@ -9,6 +9,7 @@ interface Video {
   title: string;
   channelTitle: string;
   thumbnailUrl: string;
+  platform?: string;
   elo: number;
   matches: number;
 }
@@ -27,6 +28,10 @@ export default function ShortsBattle() {
   const playerARef = useRef<YT.Player | null>(null);
   const playerBRef = useRef<YT.Player | null>(null);
   const [apiReady, setApiReady] = useState(false);
+  const [submitUrl, setSubmitUrl] = useState('');
+  const [submitStatus, setSubmitStatus] = useState<'idle'|'loading'|'ok'|'error'|'dup'>('idle');
+  const [submitMsg, setSubmitMsg] = useState('');
+  const [showSubmit, setShowSubmit] = useState(false);
 
   // Load YouTube IFrame API
   useEffect(() => {
@@ -55,26 +60,22 @@ export default function ShortsBattle() {
     loadBattlePair();
   }, []);
 
-  // Initialize players when videos change and API is ready
+  // Initialize YouTube players when videos change and API is ready
   useEffect(() => {
     if (!apiReady || !videoA || !videoB) return;
+    if (videoA.platform === 'instagram' || videoB.platform === 'instagram') {
+      setPlayState('ready-to-vote');
+      return;
+    }
 
-    // Clean up old players
     playerARef.current?.destroy();
     playerBRef.current?.destroy();
 
     setPlayState('playing-left');
 
-    // Create player A (auto-plays first)
     playerARef.current = new YT.Player('player-a', {
       videoId: videoA.youtubeId,
-      playerVars: {
-        autoplay: 1,
-        controls: 1,
-        modestbranding: 1,
-        rel: 0,
-        playsinline: 1,
-      },
+      playerVars: { autoplay: 1, controls: 1, modestbranding: 1, rel: 0, playsinline: 1 },
       events: {
         onStateChange: (event: YT.OnStateChangeEvent) => {
           if (event.data === YT.PlayerState.ENDED) {
@@ -85,21 +86,12 @@ export default function ShortsBattle() {
       },
     });
 
-    // Create player B (plays after A ends)
     playerBRef.current = new YT.Player('player-b', {
       videoId: videoB.youtubeId,
-      playerVars: {
-        autoplay: 0,
-        controls: 1,
-        modestbranding: 1,
-        rel: 0,
-        playsinline: 1,
-      },
+      playerVars: { autoplay: 0, controls: 1, modestbranding: 1, rel: 0, playsinline: 1 },
       events: {
         onStateChange: (event: YT.OnStateChangeEvent) => {
-          if (event.data === YT.PlayerState.ENDED) {
-            setPlayState('ready-to-vote');
-          }
+          if (event.data === YT.PlayerState.ENDED) setPlayState('ready-to-vote');
         },
       },
     });
@@ -136,6 +128,23 @@ export default function ShortsBattle() {
       console.error('Failed to submit vote:', error);
     }
     setVoting(false);
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!submitUrl.trim()) return;
+    setSubmitStatus('loading');
+    try {
+      const res = await fetch('/api/shorts/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: submitUrl }),
+      });
+      const data = await res.json();
+      if (res.status === 409) { setSubmitStatus('dup'); setSubmitMsg('Already in the pool!'); }
+      else if (res.ok) { setSubmitStatus('ok'); setSubmitMsg(`Added: "${data.video.title}"`); setSubmitUrl(''); }
+      else { setSubmitStatus('error'); setSubmitMsg(data.error || 'Failed'); }
+    } catch { setSubmitStatus('error'); setSubmitMsg('Network error'); }
   }
 
   async function loadLeaderboard() {
@@ -188,7 +197,9 @@ export default function ShortsBattle() {
           } ${playState === 'playing-left' ? 'ring-2 ring-yellow-400' : ''}`}
         >
           <div className="aspect-[9/16] relative bg-black">
-            <div id="player-a" className="w-full h-full" />
+            {videoA.platform === 'instagram'
+              ? <iframe src={`https://www.instagram.com/p/${videoA.youtubeId}/embed/`} className="w-full h-full border-0" allowFullScreen />
+              : <div id="player-a" className="w-full h-full" />}
           </div>
           <div className="p-4">
             <div className="flex items-center gap-2 mb-1">
@@ -211,7 +222,9 @@ export default function ShortsBattle() {
           } ${playState === 'playing-right' ? 'ring-2 ring-yellow-400' : ''}`}
         >
           <div className="aspect-[9/16] relative bg-black">
-            <div id="player-b" className="w-full h-full" />
+            {videoB.platform === 'instagram'
+              ? <iframe src={`https://www.instagram.com/p/${videoB.youtubeId}/embed/`} className="w-full h-full border-0" allowFullScreen />
+              : <div id="player-b" className="w-full h-full" />}
           </div>
           <div className="p-4">
             <div className="flex items-center gap-2 mb-1">
@@ -225,6 +238,32 @@ export default function ShortsBattle() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Submit a Short */}
+      <div className="mt-6 mb-2 text-center">
+        <button onClick={() => { setShowSubmit(s => !s); setSubmitStatus('idle'); setSubmitMsg(''); }} className="text-xs text-zinc-500 hover:text-yellow-400 transition-colors underline underline-offset-2">
+          {showSubmit ? 'Hide' : '+ Submit a short you love (YouTube or Instagram)'}
+        </button>
+        {showSubmit && (
+          <form onSubmit={handleSubmit} className="mt-3 flex gap-2 max-w-lg mx-auto">
+            <input
+              type="url"
+              value={submitUrl}
+              onChange={e => { setSubmitUrl(e.target.value); setSubmitStatus('idle'); }}
+              placeholder="Paste YouTube Shorts or Instagram Reel URL…"
+              className="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-yellow-500"
+            />
+            <button type="submit" disabled={submitStatus === 'loading'} className="px-4 py-2 bg-yellow-500 text-black text-sm font-semibold rounded-lg hover:bg-yellow-400 disabled:opacity-50 whitespace-nowrap">
+              {submitStatus === 'loading' ? '…' : 'Add'}
+            </button>
+          </form>
+        )}
+        {submitMsg && (
+          <p className={`mt-2 text-xs ${submitStatus === 'ok' ? 'text-green-400' : submitStatus === 'dup' ? 'text-yellow-400' : 'text-red-400'}`}>
+            {submitMsg}
+          </p>
+        )}
       </div>
 
       {/* Controls */}
