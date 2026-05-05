@@ -63,7 +63,8 @@ export default function ShortsBattle() {
   // Initialize YouTube players when videos change and API is ready
   useEffect(() => {
     if (!apiReady || !videoA || !videoB) return;
-    if (videoA.platform === 'instagram' || videoB.platform === 'instagram') {
+    if (videoA.platform === 'instagram' || videoB.platform === 'instagram' ||
+        videoA.platform === 'tiktok'    || videoB.platform === 'tiktok') {
       setPlayState('ready-to-vote');
       return;
     }
@@ -199,7 +200,9 @@ export default function ShortsBattle() {
           <div className="aspect-[9/16] relative bg-black">
             {videoA.platform === 'instagram'
               ? <iframe src={`https://www.instagram.com/p/${videoA.youtubeId}/embed/`} className="w-full h-full border-0" allowFullScreen />
-              : <div id="player-a" className="w-full h-full" />}
+              : videoA.platform === 'tiktok'
+                ? <iframe src={`https://www.tiktok.com/embed/v2/${videoA.youtubeId}`} className="w-full h-full border-0" allowFullScreen allow="encrypted-media" />
+                : <div id="player-a" className="w-full h-full" />}
           </div>
           <div className="p-4">
             <div className="flex items-center gap-2 mb-1">
@@ -224,7 +227,9 @@ export default function ShortsBattle() {
           <div className="aspect-[9/16] relative bg-black">
             {videoB.platform === 'instagram'
               ? <iframe src={`https://www.instagram.com/p/${videoB.youtubeId}/embed/`} className="w-full h-full border-0" allowFullScreen />
-              : <div id="player-b" className="w-full h-full" />}
+              : videoB.platform === 'tiktok'
+                ? <iframe src={`https://www.tiktok.com/embed/v2/${videoB.youtubeId}`} className="w-full h-full border-0" allowFullScreen allow="encrypted-media" />
+                : <div id="player-b" className="w-full h-full" />}
           </div>
           <div className="p-4">
             <div className="flex items-center gap-2 mb-1">
@@ -251,7 +256,7 @@ export default function ShortsBattle() {
               type="url"
               value={submitUrl}
               onChange={e => { setSubmitUrl(e.target.value); setSubmitStatus('idle'); }}
-              placeholder="Paste YouTube Shorts or Instagram Reel URL…"
+              placeholder="Paste YouTube Shorts, Instagram Reel, or TikTok URL…"
               className="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-yellow-500"
             />
             <button type="submit" disabled={submitStatus === 'loading'} className="px-4 py-2 bg-yellow-500 text-black text-sm font-semibold rounded-lg hover:bg-yellow-400 disabled:opacity-50 whitespace-nowrap">
