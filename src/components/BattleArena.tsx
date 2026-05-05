@@ -25,8 +25,14 @@ export function BattleArena() {
   const [voting, setVoting] = useState(false);
 
   useEffect(() => {
-    fetch('/api/movies/all')
-      .then(r => r.json())
+    // Try user's own list first; fall back to global catalog
+    fetch('/api/movies/my')
+      .then(async r => {
+        if (r.status === 401) return fetch('/api/movies/all').then(r2 => r2.json());
+        const data = await r.json();
+        if (Array.isArray(data) && data.length >= 2) return data;
+        return fetch('/api/movies/all').then(r2 => r2.json());
+      })
       .then((data: Movie[]) => {
         const withPoster = data.filter(m => m.posterUrl && m.posterUrl.length > 5);
         setMovies(withPoster);

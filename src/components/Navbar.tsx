@@ -60,19 +60,21 @@ export function Navbar() {
             <div className="text-sm text-zinc-500">Loading...</div>
           ) : user ? (
             <div className="flex items-center gap-3">
-              {session?.user?.image && (
-                <img 
-                  src={session.user.image} 
-                  alt="" 
-                  className="w-8 h-8 rounded-full"
-                />
-              )}
-              <span className="text-sm text-white">
+              <Link
+                href="/add-movies"
+                className="hidden md:flex items-center gap-1 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold rounded-lg transition-colors"
+              >
+                + Add Movies
+              </Link>
+              <Link
+                href={`/users/${session?.user?.username || session?.user?.name || legacyUser?.username}`}
+                className="text-sm text-white hover:text-yellow-400 transition-colors"
+              >
                 {session?.user?.username || session?.user?.name || legacyUser?.username}
-              </span>
+              </Link>
               <button
                 onClick={handleSignOut}
-                className="text-sm text-zinc-400 hover:text-white transition-colors"
+                className="text-sm text-zinc-500 hover:text-white transition-colors"
               >
                 Sign Out
               </button>
