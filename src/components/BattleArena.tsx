@@ -10,6 +10,21 @@ interface Movie {
   elo: number;
 }
 
+const DECADES = [
+  { label: 'All', value: '' },
+  { label: '70s', value: '197' },
+  { label: '80s', value: '198' },
+  { label: '90s', value: '199' },
+  { label: '00s', value: '200' },
+  { label: '10s', value: '201' },
+  { label: '20s', value: '202' },
+];
+
+function filterByDecade(movies: Movie[], decade: string) {
+  if (!decade) return movies;
+  return movies.filter(m => m.date?.startsWith(decade));
+}
+
 function getRandomPair(movies: Movie[]): [Movie, Movie] | null {
   if (movies.length < 2) return null;
   const shuffled = [...movies].sort(() => Math.random() - 0.5);
@@ -17,7 +32,8 @@ function getRandomPair(movies: Movie[]): [Movie, Movie] | null {
 }
 
 export function BattleArena() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [allMovies, setAllMovies] = useState<Movie[]>([]);
+  const [decade, setDecade] = useState('');
   const [pair, setPair] = useState<[Movie, Movie] | null>(null);
   const [loading, setLoading] = useState(true);
   const [winner, setWinner] = useState<string | null>(null);
@@ -25,7 +41,6 @@ export function BattleArena() {
   const [voting, setVoting] = useState(false);
 
   useEffect(() => {
-    // Try user's own list first; fall back to global catalog
     fetch('/api/movies/my')
       .then(async r => {
         if (r.status === 401) return fetch('/api/movies/all').then(r2 => r2.json());
@@ -35,11 +50,19 @@ export function BattleArena() {
       })
       .then((data: Movie[]) => {
         const withPoster = data.filter(m => m.posterUrl && m.posterUrl.length > 5);
-        setMovies(withPoster);
+        setAllMovies(withPoster);
         setPair(getRandomPair(withPoster));
       })
       .finally(() => setLoading(false));
   }, []);
+
+  // Re-pair when decade changes
+  useEffect(() => {
+    const filtered = filterByDecade(allMovies, decade);
+    setPair(getRandomPair(filtered));
+  }, [decade, allMovies]);
+
+  const movies = filterByDecade(allMovies, decade);
 
   const handleVote = useCallback(async (movieId: string) => {
     if (!pair || voting || winner) return;
@@ -56,9 +79,10 @@ export function BattleArena() {
 
     setBattleCount(c => c + 1);
     setWinner(null);
-    setPair(getRandomPair(movies));
+    const filtered = filterByDecade(allMovies, decade);
+    setPair(getRandomPair(filtered));
     setVoting(false);
-  }, [pair, voting, winner, movies]);
+  }, [pair, voting, winner, allMovies, decade]);
 
   if (loading) {
     return (
@@ -71,8 +95,24 @@ export function BattleArena() {
 
   if (!pair) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-zinc-500">No movies available</p>
+      <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-wrap justify-center gap-1.5">
+          {DECADES.map(d => (
+            <button key={d.value} onClick={() => setDecade(d.value)}
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all border ${
+                decade === d.value
+                  ? 'bg-yellow-400 text-black border-yellow-400'
+                  : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-600'
+              }`}>
+              {d.label}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center justify-center h-40 text-center">
+          <p className="text-zinc-500 text-sm">
+            {decade ? `Not enough ${DECADES.find(d=>d.value===decade)?.label} movies — add some or pick another decade` : 'Add at least 2 movies to start battling'}
+          </p>
+        </div>
       </div>
     );
   }
@@ -81,10 +121,24 @@ export function BattleArena() {
 
   return (
     <div className="flex flex-col items-center gap-6">
+      {/* Decade filter pills */}
+      <div className="flex flex-wrap justify-center gap-1.5">
+        {DECADES.map(d => (
+          <button key={d.value} onClick={() => setDecade(d.value)}
+            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all border ${
+              decade === d.value
+                ? 'bg-yellow-400 text-black border-yellow-400'
+                : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-600'
+            }`}>
+            {d.label}
+          </button>
+        ))}
+      </div>
+
       {/* Battle count */}
       <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800">
         <span className="text-yellow-500 text-xs font-bold">⚡</span>
-        <span className="text-zinc-400 text-xs font-medium">{battleCount} battles</span>
+        <span className="text-zinc-400 text-xs font-medium">{battleCount} battles{decade ? ` · ${DECADES.find(d=>d.value===decade)?.label} only` : ''}</span>
       </div>
 
       <p className="text-zinc-500 text-sm">Which movie do you prefer?</p>

@@ -19,6 +19,9 @@ model User {
   bio           String?
   movies        Movie[]
   votes         Vote[]
+  following     Follow[] @relation("Follower")
+  followers     Follow[] @relation("Following")
+  pushSubs      PushSubscription[]
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
 
@@ -86,6 +89,30 @@ model Video {
   updatedAt    DateTime @updatedAt @map("updated_at")
   
   @@map("videos")
+}
+
+model Follow {
+  id          String   @id @default(uuid())
+  followerId  String   @map("follower_id")
+  followingId String   @map("following_id")
+  follower    User     @relation("Follower",  fields: [followerId],  references: [id])
+  following   User     @relation("Following", fields: [followingId], references: [id])
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@unique([followerId, followingId])
+  @@map("follows")
+}
+
+model PushSubscription {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("push_subscriptions")
 }
 
 model VideoVote {

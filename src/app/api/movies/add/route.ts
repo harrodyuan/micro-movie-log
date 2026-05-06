@@ -37,5 +37,29 @@ export async function POST(request: NextRequest) {
     data: { title, date, posterUrl, rating, userId: session.user.id, elo: 1200, matches: 0 },
   });
 
+  // Notify followers who haven't added this movie yet — "Have you seen this?"
+  const myUsername = session.user.username || session.user.name;
+  try {
+    const followers = await prisma.follow.findMany({
+      where: { followingId: session.user.id },
+      select: { followerId: true },
+    });
+    for (const { followerId } of followers) {
+      const alreadyHas = await prisma.movie.findFirst({ where: { userId: followerId, title } });
+      if (!alreadyHas) {
+        fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/push/notify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId: followerId,
+            title: `Have you seen "${title}"?`,
+            body: `@${myUsername} just added it to their ranking`,
+            url: `/movies/${encodeURIComponent(title)}`,
+          }),
+        }).catch(() => {});
+      }
+    }
+  } catch {}
+
   return NextResponse.json({ movie });
 }

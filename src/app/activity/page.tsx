@@ -2,11 +2,27 @@ import { prisma } from '@/lib/db';
 import Link from 'next/link';
 import { Activity, Film } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
-export default async function ActivityPage() {
+export default async function ActivityPage({ searchParams }: { searchParams: Promise<{ filter?: string }> }) {
+  const { filter } = await searchParams;
+  const session = await getServerSession(authOptions);
+
+  // If filter=friends and logged in, get only followed users' activity
+  let userIdFilter: string[] | undefined;
+  if (filter === 'friends' && session?.user?.id) {
+    const follows = await prisma.follow.findMany({
+      where: { followerId: session.user.id },
+      select: { followingId: true },
+    });
+    userIdFilter = follows.map(f => f.followingId);
+  }
+
   const recent = await prisma.movie.findMany({
+    where: userIdFilter ? { userId: { in: userIdFilter } } : undefined,
     orderBy: { createdAt: 'desc' },
     take: 60,
     select: {
@@ -26,6 +42,10 @@ export default async function ActivityPage() {
             <h1 className="text-2xl font-bold">Activity Feed</h1>
           </div>
           <p className="text-zinc-500 text-sm">What everyone is watching and ranking</p>
+          <div className="flex gap-2 mt-4 justify-center">
+            <Link href="/activity" className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all ${!filter || filter==='all' ? 'bg-yellow-400 text-black border-yellow-400' : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-600'}`}>Everyone</Link>
+            <Link href="/activity?filter=friends" className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all ${filter==='friends' ? 'bg-yellow-400 text-black border-yellow-400' : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-600'}`}>Friends only</Link>
+          </div>
         </header>
 
         <div className="space-y-2">

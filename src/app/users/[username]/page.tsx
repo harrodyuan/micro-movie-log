@@ -2,6 +2,7 @@ import { prisma } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import { Film } from 'lucide-react';
 import { ShareCardButton } from '@/components/ShareCardButton';
+import { FollowButton } from '@/components/FollowButton';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
@@ -48,10 +49,11 @@ export default async function UserProfilePage({ params }: PageProps) {
             <div className="w-14 h-14 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center">
               <span className="text-2xl font-black text-zinc-300 uppercase">{user.username[0]}</span>
             </div>
-            <div>
+            <div className="flex-1">
               <h1 className="text-2xl font-bold text-white">@{user.username}</h1>
               {user.bio && <p className="text-zinc-400 text-sm mt-0.5">{user.bio}</p>}
             </div>
+            <FollowButton username={user.username} />
           </div>
           <div className="flex flex-wrap items-center gap-6 text-sm">
             <div><span className="text-white font-bold">{user.movies.length.toLocaleString()}</span><span className="text-zinc-500 ml-1">movies</span></div>
